@@ -17,9 +17,14 @@ public class Member extends BaseEntity {
     @Setter
     private String name;
 
-    private String email;
+    @Setter
+    private String profileImageUrl;
 
-    private String phone;
+    @Setter
+    private String birth;
+
+    @Setter
+    private Gender gender;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -32,14 +37,17 @@ public class Member extends BaseEntity {
 
     private String clientId;
 
-    // 편의상 DB에 저장, 실제로는 저장하지 않게 해야 함
+    // todo 편의상 DB에 저장, 실제로는 저장하지 않게 해야 함
     @Setter
     private String refreshToken;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+    private MemberLoginInfo memberLoginInfo;
+
 
     @Builder
     public Member(String name, String email, LoginType loginType, String clientId) {
         this.name = name;
-        this.email = email;
         this.role = Role.MEMBER;
         this.loginType = loginType;
         this.clientId = clientId;
