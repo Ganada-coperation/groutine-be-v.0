@@ -1,5 +1,6 @@
 package com.example.groutine.domain.member.entity;
 
+import com.example.groutine.global.common.base.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MemberLoginInfo {
+public class MemberLoginInfo extends BaseEntity {
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
