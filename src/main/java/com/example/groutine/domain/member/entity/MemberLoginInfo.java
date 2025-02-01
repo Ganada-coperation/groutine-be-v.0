@@ -1,10 +1,7 @@
 package com.example.groutine.domain.member.entity;
 
 import com.example.groutine.global.common.base.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -24,5 +21,9 @@ public class MemberLoginInfo extends BaseEntity {
 
     @NotNull
     private String password;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 
 }
