@@ -9,15 +9,4 @@ import org.springframework.stereotype.Component;
 public class MemberAdapterServiceImpl implements MemberAdapterService{
 
     private final MemberService memberService;
-
-    @Override
-    public Member getMemberByPhone(String phone) {
-        return memberService.getMemberByPhone(phone);
-    }
-
-    @Override
-    public boolean existsByPhone(String phone) {
-        return memberService.existsByPhone(phone);
-    }
-
 }
