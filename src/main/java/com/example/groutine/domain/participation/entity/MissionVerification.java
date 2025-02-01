@@ -4,12 +4,14 @@ import com.example.groutine.domain.challenge.entity.ChallengeMission;
 import com.example.groutine.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Setter
+@Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MissionVerification {
 
