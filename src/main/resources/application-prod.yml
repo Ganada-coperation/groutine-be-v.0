@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: your-mode
+    name: groutine
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
