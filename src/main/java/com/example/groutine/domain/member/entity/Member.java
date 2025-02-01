@@ -1,9 +1,14 @@
 package com.example.groutine.domain.member.entity;
 
+import com.example.groutine.domain.participation.entity.MemberChallenge;
+import com.example.groutine.domain.participation.entity.MissionVerification;
 import com.example.groutine.global.common.base.BaseEntity;
 import com.example.groutine.global.common.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -43,6 +48,12 @@ public class Member extends BaseEntity {
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
     private MemberLoginInfo memberLoginInfo;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<MemberChallenge> memberChallengeList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<MissionVerification> missionVerificationList = new ArrayList<>();
 
 
     @Builder
