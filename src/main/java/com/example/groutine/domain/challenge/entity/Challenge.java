@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 @Entity
 @Getter
@@ -30,9 +29,6 @@ public class Challenge extends BaseEntity {
 
     private String profileUrl;
 
-    @Enumerated(EnumType.STRING)
-    private ChallengeCategory category;
-
     @OneToMany(mappedBy = "challenge", cascade = CascadeType.ALL)
     private List<MemberChallenge> memberChallengeList = new ArrayList<>();
 
@@ -40,12 +36,11 @@ public class Challenge extends BaseEntity {
     private List<ChallengeMission> challengeMissionArrayList = new ArrayList<>();
 
     @Builder
-    public Challenge(String title, LocalDateTime startDate, LocalDateTime endDate, String profileUrl, ChallengeCategory category) {
+    public Challenge(String title, LocalDateTime startDate, LocalDateTime endDate, String profileUrl) {
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
         this.profileUrl = profileUrl;
-        this.category = category;
     }
 
 
