@@ -20,8 +20,8 @@ public class ChallengeMission extends BaseEntity {
     @Setter
     private String title;
 
-    @Setter
-    private String content;
+    @Enumerated(EnumType.STRING)
+    private MissionType missionType;
 
     @Setter
     private String verifyGuide;
@@ -34,9 +34,9 @@ public class ChallengeMission extends BaseEntity {
     private List<MissionVerification> missionVerificationList = new ArrayList<>();
 
     @Builder
-    public ChallengeMission(String title, String content, String verifyGuide) {
+    public ChallengeMission(String title, MissionType missionType, String verifyGuide) {
         this.title = title;
-        this.content = content;
+        this.missionType = missionType;
         this.verifyGuide = verifyGuide;
     }
 }
