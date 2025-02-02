@@ -1,5 +1,6 @@
 package com.example.groutine.domain.challenge.controller;
 
+import com.example.groutine.domain.challenge.dto.request.ChallengeRequestDto;
 import com.example.groutine.domain.member.entity.Member;
 import com.example.groutine.global.common.base.BaseResponse;
 import com.example.groutine.global.config.security.auth.CurrentMember;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/challenges")
 public class ChallengeController {
+
+    private final ChallengeService challengeService;
 
     @Operation(summary = "챌린지 리스트 조회 API", description = "메인 페이지의 챌린지 리스트를 조회")
     @GetMapping("")
