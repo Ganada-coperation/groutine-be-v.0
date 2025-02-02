@@ -1,6 +1,7 @@
 package com.example.groutine.domain.challenge.controller;
 
-import com.example.groutine.domain.challenge.dto.request.ChallengeRequestDto;
+import com.example.groutine.domain.challenge.dto.request.*;
+import com.example.groutine.domain.challenge.dto.response.*;
 import com.example.groutine.domain.member.entity.Member;
 import com.example.groutine.global.common.base.BaseResponse;
 import com.example.groutine.global.config.security.auth.CurrentMember;
