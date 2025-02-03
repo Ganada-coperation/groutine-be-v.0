@@ -2,6 +2,9 @@ package com.example.groutine.domain.challenge.controller;
 
 import com.example.groutine.domain.challenge.dto.request.*;
 import com.example.groutine.domain.challenge.dto.response.*;
+import com.example.groutine.domain.challenge.service.ChallengeCommandService;
+import com.example.groutine.domain.challenge.service.ChallengeParticipationService;
+import com.example.groutine.domain.challenge.service.ChallengeQueryService;
 import com.example.groutine.domain.member.entity.Member;
 import com.example.groutine.global.common.base.BaseResponse;
 import com.example.groutine.global.config.security.auth.CurrentMember;
@@ -20,15 +23,18 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/challenges")
 public class ChallengeController {
 
-    private final ChallengeService challengeService;
+    private final ChallengeQueryService challengeQueryService;
+    private final ChallengeCommandService challengeCommandService;
+    private final ChallengeParticipationService challengeParticipationService;
 
     @Operation(summary = "챌린지 리스트 조회 API", description = "메인 페이지의 챌린지 리스트를 조회")
     @GetMapping("")
     public BaseResponse<ChallengeListResponseDto> getChallengeList(
-            @CurrentMember Member member,
             @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable
     ) {
-        return BaseResponse.onSuccess();
+        return BaseResponse.onSuccess(
+
+        );
     }
 
     @Operation(summary = "챌린지 상세 조회 API", description = "챌린지 하나를 상세 조회")
@@ -36,15 +42,19 @@ public class ChallengeController {
     public BaseResponse<ChallengeDetailResponseDto> getChallengeDetail(
             @PathVariable Long challengeId
     ) {
-        return BaseResponse.onSuccess();
+        return BaseResponse.onSuccess(
+
+        );
     }
 
     //챌린지 기본 정보 조회 (모든 챌린지가 동일)
     @Operation(summary = "챌린지 기본 정보 API", description = "모든 챌린지에 공통되는 정보 조회")
     @GetMapping("/basic-info")
-    public BaseResponse<ChallengeDetailResponseDto> getChallengeBasicInfo(
+    public BaseResponse<ChallengeBasicResponseDto> getChallengeBasicInfo(
     ) {
-        return BaseResponse.onSuccess();
+        return BaseResponse.onSuccess(
+
+        );
     }
 
     @Operation(summary = "챌린지 참여 API", description = "유저가 새로운 챌린지를 등록")
@@ -53,7 +63,9 @@ public class ChallengeController {
             @CurrentMember Member member,
             @PathVariable Long challengeId
     ) {
-        return BaseResponse.onSuccess();
+        return BaseResponse.onSuccess(
+
+        );
     }
 
     @Operation(summary = "챌린지 만들기 API", description = "새로운 업장을 등록함")
@@ -62,7 +74,9 @@ public class ChallengeController {
             @CurrentMember Member member,
             @RequestBody ChallengeRequestDto request
     ) {
-        return BaseResponse.onSuccess();
+        return BaseResponse.onSuccess(
+
+        );
     }
 
     @Operation(summary = "챌린지 수정하기 API", description = "새로운 업장을 등록함")
@@ -71,7 +85,9 @@ public class ChallengeController {
             @PathVariable Long challengeId,
             @RequestBody ChallengeRequestDto request
     ) {
-        return BaseResponse.onSuccess();
+        return BaseResponse.onSuccess(
+
+        );
     }
 
     @Operation(summary = "챌린지 삭제 API", description = "새로운 업장을 등록함")
@@ -79,7 +95,9 @@ public class ChallengeController {
     public BaseResponse<ChallengeIdResponseDto> deleteChallenge(
             @PathVariable Long challengeId
     ) {
-        return BaseResponse.onSuccess();
+        return BaseResponse.onSuccess(
+
+        );
     }
 
 
