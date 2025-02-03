@@ -39,6 +39,14 @@ public class ChallengeController {
         return BaseResponse.onSuccess();
     }
 
+    //챌린지 기본 정보 조회 (모든 챌린지가 동일)
+    @Operation(summary = "챌린지 기본 정보 API", description = "모든 챌린지에 공통되는 정보 조회")
+    @GetMapping("/basic-info")
+    public BaseResponse<ChallengeDetailResponseDto> getChallengeBasicInfo(
+    ) {
+        return BaseResponse.onSuccess();
+    }
+
     @Operation(summary = "챌린지 참여 API", description = "유저가 새로운 챌린지를 등록")
     @PostMapping("/{challengeId}")
     public BaseResponse<ChallengeIdResponseDto> joinChallenge(
