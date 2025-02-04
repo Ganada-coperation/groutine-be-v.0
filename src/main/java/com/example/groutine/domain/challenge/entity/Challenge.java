@@ -1,5 +1,6 @@
 package com.example.groutine.domain.challenge.entity;
 
+import com.example.groutine.domain.challenge.dto.request.ChallengeRequestDto;
 import com.example.groutine.domain.member.entity.Member;
 import com.example.groutine.domain.participation.entity.MemberChallenge;
 import com.example.groutine.global.common.base.BaseEntity;
@@ -30,7 +31,7 @@ public class Challenge extends BaseEntity {
 
     private LocalDateTime endDate;
 
-    private String profileUrl;
+    private String thumbnail;
 
     @ManyToOne
     @JoinColumn(name = "writer_id")
@@ -42,20 +43,35 @@ public class Challenge extends BaseEntity {
     @OneToMany(mappedBy = "challenge", cascade = CascadeType.ALL)
     private List<ChallengeMission> challengeMissionArrayList = new ArrayList<>();
 
+
+    //  챌린지의 미션 추가
+    public void addChallengeMission(ChallengeMission challengeMission) {
+        challengeMissionArrayList.add(challengeMission);
+    }
+
+
+    public Challenge updateChallenge(ChallengeRequestDto request) {
+        this.title = request.title();
+        this.description = request.description();
+        this.startDate = request.startAt();
+        this.endDate = request.endAt();
+        this.thumbnail = request.thumbnail();
+        return this;
+    }
+
+
     @Builder
     public Challenge(
             String title, String description, LocalDateTime startDate, LocalDateTime endDate, String profileUrl,
-            List<MemberChallenge> memberChallengeList, List<ChallengeMission> challengeMissionArrayList
+            Member writer, List<MemberChallenge> memberChallengeList, List<ChallengeMission> challengeMissionArrayList
     ) {
         this.title = title;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
         this.profileUrl = profileUrl;
+        this.writer = writer;
         this.memberChallengeList = (memberChallengeList != null) ? memberChallengeList : new ArrayList<>();
         this.challengeMissionArrayList = (challengeMissionArrayList != null) ? challengeMissionArrayList : new ArrayList<>();
     }
-    }
-
-
 }

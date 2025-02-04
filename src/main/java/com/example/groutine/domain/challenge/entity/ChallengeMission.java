@@ -34,9 +34,12 @@ public class ChallengeMission extends BaseEntity {
     private List<MissionVerification> missionVerificationList = new ArrayList<>();
 
     @Builder
-    public ChallengeMission(String title, MissionType missionType, String verifyGuide) {
+    public ChallengeMission(
+            String title, MissionType missionType, String verifyGuide, Challenge challenge
+    ) {
         this.title = title;
         this.missionType = missionType;
         this.verifyGuide = verifyGuide;
+        this.challenge = challenge;
     }
 }
