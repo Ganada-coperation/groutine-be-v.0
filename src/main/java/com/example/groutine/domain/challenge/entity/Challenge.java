@@ -53,8 +53,8 @@ public class Challenge extends BaseEntity {
     public Challenge updateChallenge(ChallengeRequestDto request) {
         this.title = request.title();
         this.description = request.description();
-        this.startDate = request.startAt();
-        this.endDate = request.endAt();
+        this.startDate = request.startDate();
+        this.endDate = request.endDate();
         this.thumbnail = request.thumbnail();
         return this;
     }
@@ -62,14 +62,14 @@ public class Challenge extends BaseEntity {
 
     @Builder
     public Challenge(
-            String title, String description, LocalDateTime startDate, LocalDateTime endDate, String profileUrl,
+            String title, String description, LocalDateTime startDate, LocalDateTime endDate, String thumbnail,
             Member writer, List<MemberChallenge> memberChallengeList, List<ChallengeMission> challengeMissionArrayList
     ) {
         this.title = title;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.profileUrl = profileUrl;
+        this.thumbnail = thumbnail;
         this.writer = writer;
         this.memberChallengeList = (memberChallengeList != null) ? memberChallengeList : new ArrayList<>();
         this.challengeMissionArrayList = (challengeMissionArrayList != null) ? challengeMissionArrayList : new ArrayList<>();
