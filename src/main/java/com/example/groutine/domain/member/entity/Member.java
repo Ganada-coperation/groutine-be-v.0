@@ -1,5 +1,6 @@
 package com.example.groutine.domain.member.entity;
 
+import com.example.groutine.domain.challenge.entity.Challenge;
 import com.example.groutine.domain.participation.entity.MemberChallenge;
 import com.example.groutine.domain.participation.entity.MissionVerification;
 import com.example.groutine.global.common.base.BaseEntity;
@@ -54,6 +55,9 @@ public class Member extends BaseEntity {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<MissionVerification> missionVerificationList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Challenge> challengeList = new ArrayList<>();
 
 
     @Builder

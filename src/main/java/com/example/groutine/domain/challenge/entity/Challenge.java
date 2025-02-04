@@ -1,5 +1,6 @@
 package com.example.groutine.domain.challenge.entity;
 
+import com.example.groutine.domain.member.entity.Member;
 import com.example.groutine.domain.participation.entity.MemberChallenge;
 import com.example.groutine.global.common.base.BaseEntity;
 import jakarta.persistence.*;
@@ -23,11 +24,17 @@ public class Challenge extends BaseEntity {
 
     private String title;
 
+    private String description;
+
     private LocalDateTime startDate;
 
     private LocalDateTime endDate;
 
     private String profileUrl;
+
+    @ManyToOne
+    @JoinColumn(name = "writer_id")
+    private Member writer;
 
     @OneToMany(mappedBy = "challenge", cascade = CascadeType.ALL)
     private List<MemberChallenge> memberChallengeList = new ArrayList<>();
@@ -36,11 +43,18 @@ public class Challenge extends BaseEntity {
     private List<ChallengeMission> challengeMissionArrayList = new ArrayList<>();
 
     @Builder
-    public Challenge(String title, LocalDateTime startDate, LocalDateTime endDate, String profileUrl) {
+    public Challenge(
+            String title, String description, LocalDateTime startDate, LocalDateTime endDate, String profileUrl,
+            List<MemberChallenge> memberChallengeList, List<ChallengeMission> challengeMissionArrayList
+    ) {
         this.title = title;
+        this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
         this.profileUrl = profileUrl;
+        this.memberChallengeList = (memberChallengeList != null) ? memberChallengeList : new ArrayList<>();
+        this.challengeMissionArrayList = (challengeMissionArrayList != null) ? challengeMissionArrayList : new ArrayList<>();
+    }
     }
 
 
