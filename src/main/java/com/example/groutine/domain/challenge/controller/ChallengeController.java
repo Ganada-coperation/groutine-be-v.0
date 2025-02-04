@@ -9,7 +9,6 @@ import com.example.groutine.domain.member.entity.Member;
 import com.example.groutine.global.common.base.BaseResponse;
 import com.example.groutine.global.config.security.auth.CurrentMember;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -33,7 +32,7 @@ public class ChallengeController implements ChallengeControllerInterface{
             @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable
     ) {
         return BaseResponse.onSuccess(
-
+            challengeQueryService.getChallengeList(pageable)
         );
     }
 
@@ -44,7 +43,7 @@ public class ChallengeController implements ChallengeControllerInterface{
             @PathVariable Long challengeId
     ) {
         return BaseResponse.onSuccess(
-
+            challengeQueryService.getChallengeDetail(challengeId)
         );
     }
 
@@ -54,7 +53,7 @@ public class ChallengeController implements ChallengeControllerInterface{
     public BaseResponse<ChallengeBasicResponseDto> getChallengeBasicInfo(
     ) {
         return BaseResponse.onSuccess(
-
+            challengeQueryService.getChallengeBasic()
         );
     }
 
@@ -66,7 +65,19 @@ public class ChallengeController implements ChallengeControllerInterface{
             @PathVariable Long challengeId
     ) {
         return BaseResponse.onSuccess(
+            challengeParticipationService.joinChallenge(member, challengeId)
+        );
+    }
 
+    // 챌린지 참여 취소 API
+    @Override
+    @DeleteMapping("/{challengeId}")
+    public BaseResponse<ChallengeIdResponseDto> joinCancelChallenge(
+            @CurrentMember Member member,
+            @PathVariable Long challengeId
+    ) {
+        return BaseResponse.onSuccess(
+            challengeParticipationService.joinCancelChallenge(member, challengeId)
         );
     }
 
@@ -78,11 +89,12 @@ public class ChallengeController implements ChallengeControllerInterface{
             @RequestBody ChallengeRequestDto request
     ) {
         return BaseResponse.onSuccess(
-
+            challengeCommandService.createChallenge(member, request)
         );
     }
 
     // 챌린지 수정하기 API
+    // todo: 내가 만든 챌린지가 맞는 지, 어노테이션으로 검증
     @Override
     @PatchMapping("/{challengeId}")
     public BaseResponse<ChallengeIdResponseDto> updateChallenge(
@@ -90,11 +102,12 @@ public class ChallengeController implements ChallengeControllerInterface{
             @RequestBody ChallengeRequestDto request
     ) {
         return BaseResponse.onSuccess(
-
+            challengeCommandService.updateChallenge(challengeId, request)
         );
     }
 
     // 챌린지 삭제 API
+    // todo: 내가 만든 챌린지가 맞는 지, 어노테이션으로 검증
     @Override
     @Operation(summary = "챌린지 삭제 API", description = "새로운 업장을 등록함")
     @DeleteMapping("/{challengeId}")
@@ -102,7 +115,7 @@ public class ChallengeController implements ChallengeControllerInterface{
             @PathVariable Long challengeId
     ) {
         return BaseResponse.onSuccess(
-
+            challengeCommandService.deleteChallenge(challengeId)
         );
     }
 

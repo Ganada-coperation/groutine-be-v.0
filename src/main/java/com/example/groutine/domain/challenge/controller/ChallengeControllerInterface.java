@@ -19,21 +19,24 @@ public interface ChallengeControllerInterface {
     BaseResponse<ChallengeListResponseDto> getChallengeList(Pageable pageable);
 
     @Operation(summary = "챌린지 상세 조회 API", description = "챌린지 하나를 상세 조회")
-    public BaseResponse<ChallengeDetailResponseDto> getChallengeDetail(Long challengeId);
+    BaseResponse<ChallengeDetailResponseDto> getChallengeDetail(Long challengeId);
 
     @Operation(summary = "챌린지 기본 정보 API", description = "모든 챌린지에 공통되는 정보 조회")
-    public BaseResponse<ChallengeBasicResponseDto> getChallengeBasicInfo();
+    BaseResponse<ChallengeBasicResponseDto> getChallengeBasicInfo();
 
     @Operation(summary = "챌린지 참여 API", description = "유저가 새로운 챌린지를 등록")
-    public BaseResponse<ChallengeIdResponseDto> joinChallenge(Member member, Long challengeId);
+    BaseResponse<ChallengeIdResponseDto> joinChallenge(Member member, Long challengeId);
+
+    @Operation(summary = "챌린지 참여 취소 API", description = "유저가 참여한 챌린지를 취소")
+    BaseResponse<ChallengeIdResponseDto> joinCancelChallenge(Member member, Long challengeId);
 
     @Operation(summary = "챌린지 만들기 API", description = "새로운 업장을 등록함")
-    public BaseResponse<ChallengeIdResponseDto> createChallenge(Member member, ChallengeRequestDto request);
+    BaseResponse<ChallengeIdResponseDto> createChallenge(Member member, ChallengeRequestDto request);
 
     @Operation(summary = "챌린지 수정하기 API", description = "새로운 업장을 등록함")
-    public BaseResponse<ChallengeIdResponseDto> updateChallenge(@PathVariable Long challengeId, ChallengeRequestDto request);
+    BaseResponse<ChallengeIdResponseDto> updateChallenge(@PathVariable Long challengeId, ChallengeRequestDto request);
 
     @Operation(summary = "챌린지 삭제 API", description = "새로운 업장을 등록함")
-    public BaseResponse<ChallengeIdResponseDto> deleteChallenge(Long challengeId);
+    BaseResponse<ChallengeIdResponseDto> deleteChallenge(Long challengeId);
 
 }
