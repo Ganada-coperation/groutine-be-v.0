@@ -16,18 +16,18 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
-
-@Tag(name = "챌린지 관련 API", description = "챌린지 API - 챌린지 정보 관련")
+//챌린지 관련 컨트롤러
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/challenges")
-public class ChallengeController {
+public class ChallengeController implements ChallengeControllerInterface{
 
     private final ChallengeQueryService challengeQueryService;
     private final ChallengeCommandService challengeCommandService;
     private final ChallengeParticipationService challengeParticipationService;
 
-    @Operation(summary = "챌린지 리스트 조회 API", description = "메인 페이지의 챌린지 리스트를 조회")
+    // 챌린지 리스트 조회 API
+    @Override
     @GetMapping("")
     public BaseResponse<ChallengeListResponseDto> getChallengeList(
             @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable
@@ -37,7 +37,8 @@ public class ChallengeController {
         );
     }
 
-    @Operation(summary = "챌린지 상세 조회 API", description = "챌린지 하나를 상세 조회")
+    // 챌린지 상세 조회 API
+    @Override
     @GetMapping("/{challengeId}")
     public BaseResponse<ChallengeDetailResponseDto> getChallengeDetail(
             @PathVariable Long challengeId
@@ -48,7 +49,7 @@ public class ChallengeController {
     }
 
     //챌린지 기본 정보 조회 (모든 챌린지가 동일)
-    @Operation(summary = "챌린지 기본 정보 API", description = "모든 챌린지에 공통되는 정보 조회")
+    @Override
     @GetMapping("/basic-info")
     public BaseResponse<ChallengeBasicResponseDto> getChallengeBasicInfo(
     ) {
@@ -57,7 +58,8 @@ public class ChallengeController {
         );
     }
 
-    @Operation(summary = "챌린지 참여 API", description = "유저가 새로운 챌린지를 등록")
+    // 챌린지 참여 API
+    @Override
     @PostMapping("/{challengeId}")
     public BaseResponse<ChallengeIdResponseDto> joinChallenge(
             @CurrentMember Member member,
@@ -68,7 +70,8 @@ public class ChallengeController {
         );
     }
 
-    @Operation(summary = "챌린지 만들기 API", description = "새로운 업장을 등록함")
+    // 챌린지 만들기 API
+    @Override
     @PostMapping("")
     public BaseResponse<ChallengeIdResponseDto> createChallenge(
             @CurrentMember Member member,
@@ -79,7 +82,8 @@ public class ChallengeController {
         );
     }
 
-    @Operation(summary = "챌린지 수정하기 API", description = "새로운 업장을 등록함")
+    // 챌린지 수정하기 API
+    @Override
     @PatchMapping("/{challengeId}")
     public BaseResponse<ChallengeIdResponseDto> updateChallenge(
             @PathVariable Long challengeId,
@@ -90,6 +94,8 @@ public class ChallengeController {
         );
     }
 
+    // 챌린지 삭제 API
+    @Override
     @Operation(summary = "챌린지 삭제 API", description = "새로운 업장을 등록함")
     @DeleteMapping("/{challengeId}")
     public BaseResponse<ChallengeIdResponseDto> deleteChallenge(
