@@ -1,10 +1,8 @@
 package com.example.groutine.domain.challenge.mapper;
 
 import com.example.groutine.domain.challenge.dto.request.ChallengeMissionRequestDto;
-import com.example.groutine.domain.challenge.dto.request.ChallengeRequestDto;
 import com.example.groutine.domain.challenge.entity.Challenge;
 import com.example.groutine.domain.challenge.entity.ChallengeMission;
-import com.example.groutine.domain.member.entity.Member;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -20,7 +18,7 @@ public class ChallengeMissionMapper {
                         .challenge(challenge)
                         .title(mission.title())
                         .verifyGuide(mission.verifyGuide())
-                        .missionType(mission.missionType())
+                        .missionType(mission.challengeMissionType())
                         .build()
                 )
                 .toList();

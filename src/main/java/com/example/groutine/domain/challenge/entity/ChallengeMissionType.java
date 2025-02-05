@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum MissionType {
+public enum ChallengeMissionType {
     REQUIRED("필수"),
     OPTIONAL("선택");
 

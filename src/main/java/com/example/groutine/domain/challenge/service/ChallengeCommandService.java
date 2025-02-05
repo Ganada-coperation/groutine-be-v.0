@@ -7,9 +7,7 @@ import com.example.groutine.domain.challenge.entity.ChallengeMission;
 import com.example.groutine.domain.challenge.mapper.ChallengeMapper;
 import com.example.groutine.domain.challenge.mapper.ChallengeMissionMapper;
 import com.example.groutine.domain.challenge.repository.ChallengeRepository;
-import com.example.groutine.domain.challenge.status.ChallengeErrorStatus;
 import com.example.groutine.domain.member.entity.Member;
-import com.example.groutine.global.common.exception.RestApiException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ChallengeCommandService {
 
+    private final ChallengeQueryService challengeQueryService;
     private final ChallengeRepository challengeRepository;
 
     // 챌린지 생성
@@ -49,7 +48,7 @@ public class ChallengeCommandService {
     public ChallengeIdResponseDto updateChallenge(Long challengeId, ChallengeRequestDto request) {
 
         // 챌린지 찾기
-        Challenge challenge = findChallengeById(challengeId);
+        Challenge challenge = challengeQueryService.findChallengeById(challengeId);
 
         // 챌린지 수정
         challenge.updateChallenge(request);
@@ -62,19 +61,12 @@ public class ChallengeCommandService {
     public ChallengeIdResponseDto deleteChallenge(Long challengeId) {
 
         // 챌린지 찾기
-        Challenge challenge = findChallengeById(challengeId);
+        Challenge challenge = challengeQueryService.findChallengeById(challengeId);
 
         // 챌린지 삭제
         challengeRepository.delete(challenge);
 
         // 챌린지 아이디 반환
         return new ChallengeIdResponseDto(challenge.getId());
-    }
-
-    // 챌린지 찾기, 없다면 예외
-    private Challenge findChallengeById(Long challengeId) {
-        return challengeRepository.findById(challengeId).orElseThrow(()
-        -> new RestApiException(ChallengeErrorStatus.NOT_FOUND_CHALLENGE)
-        );
     }
 }

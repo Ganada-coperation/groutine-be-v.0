@@ -8,10 +8,12 @@ import java.util.List;
 
 @Getter
 @Builder
+@AllArgsConstructor
 public class ChallengeListResponseDto {
 
     private List<ChallengeResponseDto> challengeList;
 
+    @Builder
     public record ChallengeResponseDto(
             Long challengeId,
             String title,

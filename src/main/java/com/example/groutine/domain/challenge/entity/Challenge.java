@@ -41,12 +41,12 @@ public class Challenge extends BaseEntity {
     private List<MemberChallenge> memberChallengeList = new ArrayList<>();
 
     @OneToMany(mappedBy = "challenge", cascade = CascadeType.ALL)
-    private List<ChallengeMission> challengeMissionArrayList = new ArrayList<>();
+    private List<ChallengeMission> challengeMissionList = new ArrayList<>();
 
 
     //  챌린지의 미션 추가
     public void addChallengeMission(ChallengeMission challengeMission) {
-        challengeMissionArrayList.add(challengeMission);
+        challengeMissionList.add(challengeMission);
     }
 
 

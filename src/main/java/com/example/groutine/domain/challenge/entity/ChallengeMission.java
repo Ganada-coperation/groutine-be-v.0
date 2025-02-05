@@ -21,7 +21,7 @@ public class ChallengeMission extends BaseEntity {
     private String title;
 
     @Enumerated(EnumType.STRING)
-    private MissionType missionType;
+    private ChallengeMissionType challengeMissionType;
 
     @Setter
     private String verifyGuide;
@@ -35,10 +35,10 @@ public class ChallengeMission extends BaseEntity {
 
     @Builder
     public ChallengeMission(
-            String title, MissionType missionType, String verifyGuide, Challenge challenge
+            String title, ChallengeMissionType challengeMissionType, String verifyGuide, Challenge challenge
     ) {
         this.title = title;
-        this.missionType = missionType;
+        this.challengeMissionType = challengeMissionType;
         this.verifyGuide = verifyGuide;
         this.challenge = challenge;
     }
