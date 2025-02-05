@@ -6,10 +6,10 @@ spring:
     name: groutine
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-
-    config:
-      import: classpath:application.yml
-
+  jackson:
+    time-zone: Asia/Seoul
+  config:
+    import: classpath:application.yml
   jpa:
     show-sql: false
     hibernate:
@@ -23,3 +23,6 @@ spring:
 logging:
   level:
     org.springframework.web: ERROR
+
+config:
+  import: classpath:application.yml
