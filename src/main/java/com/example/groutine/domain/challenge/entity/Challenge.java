@@ -2,7 +2,7 @@ package com.example.groutine.domain.challenge.entity;
 
 import com.example.groutine.domain.challenge.dto.request.ChallengeRequestDto;
 import com.example.groutine.domain.member.entity.Member;
-import com.example.groutine.domain.participation.entity.MemberChallenge;
+import com.example.groutine.domain.participation.entity.ChallengeMember;
 import com.example.groutine.global.common.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -38,7 +38,7 @@ public class Challenge extends BaseEntity {
     private Member writer;
 
     @OneToMany(mappedBy = "challenge", cascade = CascadeType.ALL)
-    private List<MemberChallenge> memberChallengeList = new ArrayList<>();
+    private List<ChallengeMember> challengeMemberList = new ArrayList<>();
 
     @OneToMany(mappedBy = "challenge", cascade = CascadeType.ALL)
     private List<ChallengeMission> challengeMissionList = new ArrayList<>();
@@ -63,7 +63,7 @@ public class Challenge extends BaseEntity {
     @Builder
     public Challenge(
             String title, String description, LocalDateTime startDate, LocalDateTime endDate, String thumbnail,
-            Member writer, List<MemberChallenge> memberChallengeList, List<ChallengeMission> challengeMissionList
+            Member writer, List<ChallengeMember> challengeMemberList, List<ChallengeMission> challengeMissionList
     ) {
         this.title = title;
         this.description = description;
@@ -71,7 +71,7 @@ public class Challenge extends BaseEntity {
         this.endDate = endDate;
         this.thumbnail = thumbnail;
         this.writer = writer;
-        this.memberChallengeList = (memberChallengeList != null) ? memberChallengeList : new ArrayList<>();
+        this.challengeMemberList = (challengeMemberList != null) ? challengeMemberList : new ArrayList<>();
         this.challengeMissionList = (challengeMissionList != null) ? challengeMissionList : new ArrayList<>();
     }
 }

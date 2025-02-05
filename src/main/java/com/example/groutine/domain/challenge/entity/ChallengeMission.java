@@ -1,6 +1,6 @@
 package com.example.groutine.domain.challenge.entity;
 
-import com.example.groutine.domain.participation.entity.MissionVerification;
+import com.example.groutine.domain.participation.entity.ChallengeMissionVerification;
 import com.example.groutine.global.common.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -31,7 +31,7 @@ public class ChallengeMission extends BaseEntity {
     private Challenge challenge;
 
     @OneToMany
-    private List<MissionVerification> missionVerificationList = new ArrayList<>();
+    private List<ChallengeMissionVerification> challengeMissionVerificationList = new ArrayList<>();
 
     @Builder
     public ChallengeMission(

@@ -2,7 +2,6 @@ package com.example.groutine.domain.participation.service;
 
 import com.example.groutine.domain.challenge.dto.response.ChallengeIdResponseDto;
 import com.example.groutine.domain.challenge.entity.Challenge;
-import com.example.groutine.domain.challenge.repository.ChallengeRepository;
 import com.example.groutine.domain.challenge.service.ChallengeQueryService;
 import com.example.groutine.domain.member.entity.Member;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class ChallengeParticipationService {
 
     private final ChallengeQueryService challengeQueryService;
-    private final ChallengeRepository challengeRepository;
 
     // 챌린지 참여
     public ChallengeIdResponseDto joinChallenge(Member member, Long challengeId) {
