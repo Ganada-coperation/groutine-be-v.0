@@ -3,9 +3,9 @@ package com.example.groutine.domain.challenge.controller;
 import com.example.groutine.domain.challenge.dto.request.*;
 import com.example.groutine.domain.challenge.dto.response.*;
 import com.example.groutine.domain.challenge.service.ChallengeCommandService;
-import com.example.groutine.domain.challenge.service.ChallengeParticipationService;
 import com.example.groutine.domain.challenge.service.ChallengeQueryService;
 import com.example.groutine.domain.member.entity.Member;
+import com.example.groutine.domain.participation.service.ChallengeParticipationService;
 import com.example.groutine.global.common.base.BaseResponse;
 import com.example.groutine.global.config.security.auth.CurrentMember;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,7 +23,6 @@ public class ChallengeController implements ChallengeControllerInterface{
 
     private final ChallengeQueryService challengeQueryService;
     private final ChallengeCommandService challengeCommandService;
-    private final ChallengeParticipationService challengeParticipationService;
 
     // 챌린지 리스트 조회 API
     @Override
@@ -54,30 +53,6 @@ public class ChallengeController implements ChallengeControllerInterface{
     ) {
         return BaseResponse.onSuccess(
             challengeQueryService.getChallengeBasic()
-        );
-    }
-
-    // 챌린지 참여 API
-    @Override
-    @PostMapping("/{challengeId}")
-    public BaseResponse<ChallengeIdResponseDto> joinChallenge(
-            @CurrentMember Member member,
-            @PathVariable Long challengeId
-    ) {
-        return BaseResponse.onSuccess(
-            challengeParticipationService.joinChallenge(member, challengeId)
-        );
-    }
-
-    // 챌린지 참여 취소 API
-    @Override
-    @DeleteMapping("/{challengeId}")
-    public BaseResponse<ChallengeIdResponseDto> joinCancelChallenge(
-            @CurrentMember Member member,
-            @PathVariable Long challengeId
-    ) {
-        return BaseResponse.onSuccess(
-            challengeParticipationService.joinCancelChallenge(member, challengeId)
         );
     }
 

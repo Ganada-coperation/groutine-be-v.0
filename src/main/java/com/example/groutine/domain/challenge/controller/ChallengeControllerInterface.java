@@ -24,12 +24,6 @@ public interface ChallengeControllerInterface {
     @Operation(summary = "챌린지 기본 정보 API", description = "모든 챌린지에 공통되는 정보 조회")
     BaseResponse<ChallengeBasicResponseDto> getChallengeBasicInfo();
 
-    @Operation(summary = "챌린지 참여 API", description = "유저가 새로운 챌린지를 등록")
-    BaseResponse<ChallengeIdResponseDto> joinChallenge(Member member, Long challengeId);
-
-    @Operation(summary = "챌린지 참여 취소 API", description = "유저가 참여한 챌린지를 취소")
-    BaseResponse<ChallengeIdResponseDto> joinCancelChallenge(Member member, Long challengeId);
-
     @Operation(summary = "챌린지 만들기 API", description = "새로운 업장을 등록함")
     BaseResponse<ChallengeIdResponseDto> createChallenge(Member member, ChallengeRequestDto request);
 

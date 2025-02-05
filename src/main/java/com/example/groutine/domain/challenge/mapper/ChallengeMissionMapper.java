@@ -18,7 +18,7 @@ public class ChallengeMissionMapper {
                         .challenge(challenge)
                         .title(mission.title())
                         .verifyGuide(mission.verifyGuide())
-                        .missionType(mission.challengeMissionType())
+                        .challengeMissionType(mission.challengeMissionType())
                         .build()
                 )
                 .toList();

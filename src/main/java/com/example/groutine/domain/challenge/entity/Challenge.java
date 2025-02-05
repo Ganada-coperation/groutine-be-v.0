@@ -63,7 +63,7 @@ public class Challenge extends BaseEntity {
     @Builder
     public Challenge(
             String title, String description, LocalDateTime startDate, LocalDateTime endDate, String thumbnail,
-            Member writer, List<MemberChallenge> memberChallengeList, List<ChallengeMission> challengeMissionArrayList
+            Member writer, List<MemberChallenge> memberChallengeList, List<ChallengeMission> challengeMissionList
     ) {
         this.title = title;
         this.description = description;
@@ -72,6 +72,6 @@ public class Challenge extends BaseEntity {
         this.thumbnail = thumbnail;
         this.writer = writer;
         this.memberChallengeList = (memberChallengeList != null) ? memberChallengeList : new ArrayList<>();
-        this.challengeMissionArrayList = (challengeMissionArrayList != null) ? challengeMissionArrayList : new ArrayList<>();
+        this.challengeMissionList = (challengeMissionList != null) ? challengeMissionList : new ArrayList<>();
     }
 }
