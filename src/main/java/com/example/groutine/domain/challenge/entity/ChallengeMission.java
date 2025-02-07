@@ -1,6 +1,6 @@
 package com.example.groutine.domain.challenge.entity;
 
-import com.example.groutine.domain.participation.entity.MissionVerification;
+import com.example.groutine.domain.participation.entity.ChallengeMissionVerification;
 import com.example.groutine.global.common.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,8 +20,8 @@ public class ChallengeMission extends BaseEntity {
     @Setter
     private String title;
 
-    @Setter
-    private String content;
+    @Enumerated(EnumType.STRING)
+    private ChallengeMissionType challengeMissionType;
 
     @Setter
     private String verifyGuide;
@@ -31,12 +31,15 @@ public class ChallengeMission extends BaseEntity {
     private Challenge challenge;
 
     @OneToMany
-    private List<MissionVerification> missionVerificationList = new ArrayList<>();
+    private List<ChallengeMissionVerification> challengeMissionVerificationList = new ArrayList<>();
 
     @Builder
-    public ChallengeMission(String title, String content, String verifyGuide) {
+    public ChallengeMission(
+            String title, ChallengeMissionType challengeMissionType, String verifyGuide, Challenge challenge
+    ) {
         this.title = title;
-        this.content = content;
+        this.challengeMissionType = challengeMissionType;
         this.verifyGuide = verifyGuide;
+        this.challenge = challenge;
     }
 }
