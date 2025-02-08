@@ -1,8 +1,9 @@
 package com.example.groutine.domain.challenge.controller;
 
-import com.example.groutine.domain.challenge.dto.request.*;
+import com.example.groutine.domain.challenge.dto.request.ChallengeRequestDto;
 import com.example.groutine.domain.challenge.dto.response.*;
 import com.example.groutine.domain.challenge.service.ChallengeCommandService;
+import com.example.groutine.domain.challenge.service.ChallengeMemberCommendService;
 import com.example.groutine.domain.challenge.service.ChallengeQueryService;
 import com.example.groutine.domain.member.entity.Member;
 import com.example.groutine.global.common.base.BaseResponse;
@@ -24,6 +25,7 @@ public class ChallengeController{
 
     private final ChallengeQueryService challengeQueryService;
     private final ChallengeCommandService challengeCommandService;
+    private final ChallengeMemberCommendService challengeMemberCommendService;
 
     // 챌린지 리스트 조회 API
     @GetMapping("")
@@ -101,8 +103,8 @@ public class ChallengeController{
             @CurrentMember Member member,
             @PathVariable Long challengeId
     ) {
-        return BaseResponse.onSuccess(
-                challengeCommandService.joinChallenge(member, challengeId)
+        return BaseResponse.onSuccess( // todo: 어떤 응답 값을 줄지 고민 ㄱㄱ
+                challengeMemberCommendService.joinChallenge(member, challengeId)
         );
     }
 
@@ -113,8 +115,8 @@ public class ChallengeController{
             @CurrentMember Member member,
             @PathVariable Long challengeId
     ) {
-        return BaseResponse.onSuccess(
-                challengeCommandService.joinCancelChallenge(member, challengeId)
+        return BaseResponse.onSuccess( // todo: 어떤 응답 값을 줄지 고민 ㄱㄱ
+                challengeMemberCommendService.joinCancelChallenge(member, challengeId)
         );
     }
 
