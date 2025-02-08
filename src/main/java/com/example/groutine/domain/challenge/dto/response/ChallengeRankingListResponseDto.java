@@ -5,14 +5,20 @@ import lombok.Builder;
 
 import java.util.List;
 
+@Builder
 public record ChallengeRankingListResponseDto(
-    List<ChallengeRankingResponseDto> challengeRankingList
+        int myRank,
+        int myScore,
+        int myAchievementRate,
+        int totalParticipantCount,
+        int totalAchieverCount,
+        List<ChallengeRankingResponseDto> challengeRankingList
 ) {
 
     @Builder
     public record ChallengeRankingResponseDto(
-            Long userId,
-            String nickname,
+            Long memberId,
+            String name,
             Integer rank,
             Integer score
     ) {

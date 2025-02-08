@@ -3,7 +3,6 @@ package com.example.groutine.domain.challenge.controller;
 import com.example.groutine.domain.challenge.dto.request.ChallengeStatus;
 import com.example.groutine.domain.challenge.dto.response.ChallengeActivityResponse.ChallengeActivityResponseDto;
 import com.example.groutine.domain.challenge.dto.response.ChallengeProgressListResponseDto;
-import com.example.groutine.domain.challenge.dto.response.ChallengeRankingInfoResponseDto;
 import com.example.groutine.domain.challenge.dto.response.ChallengeRankingListResponseDto;
 import com.example.groutine.domain.challenge.service.ChallengeMemberQueryService;
 import com.example.groutine.domain.member.entity.Member;
@@ -40,24 +39,12 @@ public class ChallengeActivityController {
     // todo : 캐싱 고민 좀
     // todo : 내가 참여하는 챌린지가 맞는 지 어노테이션으로 앞 단에서 검즘
     @GetMapping("/{challengeId}/ranking")
-    @Operation(summary = "챌린지 랭킹 조회 API", description = "하나에 챌린지에 대한 랭킹 정보 조회, 하루 마다 갱신 되는 값")
+    @Operation(summary = "챌린지 랭킹 조회 API", description = "하나에 챌린지에 대한 랭킹 정보 조회 + 내 랭킹, 달성한 사람 수 등등, 하루 마다 갱신 되는 값")
     public BaseResponse<ChallengeRankingListResponseDto> getChallengeRankingList(
             @CurrentMember Member member, // 내가 참여하는 챌린지가 맞는 지 어노테이션으로 앞 단에서 검즘하기 위해 존재하는 값
             @PathVariable Long challengeId
     ) {
-        return BaseResponse.onSuccess(challengeMemberQueryService.getChallengeRankingList(challengeId));
-    }
-
-    // 참여한 챌린지 실시간 랭킹 (내 정보)
-    // todo : 캐싱 고민 좀
-    // todo : 내가 참여하는 챌린지가 맞는 지 어노테이션으로 앞 단에서 검즘
-    @GetMapping("/{challengeId}/ranking-info")
-    @Operation(summary = "챌린지 랭킹 기타 정보 조회 API", description = "챌린지 랭킹 기타 정보 조회 (내 랭킹, 달성한 사람 수 등등)")
-    public BaseResponse<ChallengeRankingInfoResponseDto> getChallengeRankingInfo(
-            @CurrentMember Member member,
-            @PathVariable Long challengeId
-    ) {
-        return BaseResponse.onSuccess(challengeMemberQueryService.getChallengeRankingInfo(member, challengeId));
+        return BaseResponse.onSuccess(challengeMemberQueryService.getChallengeRankingListRespone(member, challengeId));
     }
 
     // 챌린지 진행 상황 조회

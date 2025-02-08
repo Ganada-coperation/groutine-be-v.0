@@ -18,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class ChallengeMemberCommendService {
 
     private final ChallengeQueryService challengeQueryService;
+    private final ChallengeMemberQueryService challengeMemberQueryService;
+
     private final ChallengeMemberRepository challengeMemberRepository;
 
     // 챌린지 참여
@@ -48,9 +50,7 @@ public class ChallengeMemberCommendService {
         Challenge challenge = challengeQueryService.findChallengeById(challengeId);
 
         // 멤버가 참여하고 있는 챌린지가 맞는지 확인
-        ChallengeMember challengeMember = challengeMemberRepository
-                .findByMemberAndChallenge(member, challenge)
-                .orElseThrow(() -> new RestApiException(ChallengeParticipationErrorStatus.NOT_PARTICIPATED_CHALLENGE));
+        ChallengeMember challengeMember = challengeMemberQueryService.findChallengeMember(member, challenge);
 
         return new ChallengeIdResponseDto(challengeMember.getId());
     }
