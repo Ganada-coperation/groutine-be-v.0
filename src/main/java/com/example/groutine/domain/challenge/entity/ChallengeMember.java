@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Getter
@@ -16,6 +17,11 @@ public class ChallengeMember extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    // 관리의 편의를 위해 점수 필드 추가
+    @Getter
+    @ColumnDefault("0")
+    private int score;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -29,5 +35,13 @@ public class ChallengeMember extends BaseEntity {
     public ChallengeMember(Member member, Challenge challenge) {
         this.member = member;
         this.challenge = challenge;
+    }
+
+    public void addScore(int score) {
+        this.score += score;
+    }
+
+    public void subtractScore(int score) {
+        this.score -= score;
     }
 }
