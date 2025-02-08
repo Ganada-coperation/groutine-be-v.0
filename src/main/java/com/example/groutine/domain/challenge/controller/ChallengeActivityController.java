@@ -2,7 +2,7 @@ package com.example.groutine.domain.challenge.controller;
 
 import com.example.groutine.domain.challenge.dto.request.ChallengeStatus;
 import com.example.groutine.domain.challenge.dto.response.ChallengeActivityResponse.ChallengeActivityResponseDto;
-import com.example.groutine.domain.challenge.dto.response.ChallengeProgressResponseDto;
+import com.example.groutine.domain.challenge.dto.response.ChallengeProgressListResponseDto;
 import com.example.groutine.domain.challenge.dto.response.ChallengeRankingInfoResponseDto;
 import com.example.groutine.domain.challenge.dto.response.ChallengeRankingListResponseDto;
 import com.example.groutine.domain.challenge.service.ChallengeMemberQueryService;
@@ -42,10 +42,10 @@ public class ChallengeActivityController {
     @GetMapping("/{challengeId}/ranking")
     @Operation(summary = "챌린지 랭킹 조회 API", description = "하나에 챌린지에 대한 랭킹 정보 조회, 하루 마다 갱신 되는 값")
     public BaseResponse<ChallengeRankingListResponseDto> getChallengeRankingList(
-            @CurrentMember Member member,
+            @CurrentMember Member member, // 내가 참여하는 챌린지가 맞는 지 어노테이션으로 앞 단에서 검즘하기 위해 존재하는 값
             @PathVariable Long challengeId
     ) {
-        return BaseResponse.onSuccess(challengeMemberQueryService.getChallengeRankingList(member, challengeId));
+        return BaseResponse.onSuccess(challengeMemberQueryService.getChallengeRankingList(challengeId));
     }
 
     // 참여한 챌린지 실시간 랭킹 (내 정보)
@@ -64,8 +64,8 @@ public class ChallengeActivityController {
     // todo: 캐싱 고려 (많이 변경되지 않는 데이터 같은데, 나만 조회에서 성능 이점이 있을지는 모르겠음)
     // todo: 내가 참여하는 챌린지가 맞는 지 어노테이션으로 앞 단에서 검즘
     @GetMapping("/{challengeId}/progress")
-    @Operation(summary = "챌린지 진행 상황 API", description = "챌린지에 대한 진행 상황 조회, 페이지 값만 쿼리로 넘겨줘도(?page=0) 알아서 잘 동작함 ")
-    public BaseResponse<ChallengeProgressResponseDto> getChallengeProgress(
+    @Operation(summary = "챌린지 진행 상황 API", description = "챌린지에 대한 진행 상황 조회(날짜 별 완료, 미완료), 페이지 값만 쿼리로 넘겨줘도(?page=0) 알아서 잘 동작함 ")
+    public BaseResponse<ChallengeProgressListResponseDto> getChallengeProgress(
             @CurrentMember Member member,
             @PathVariable Long challengeId,
             @PageableDefault(size = 15, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable
