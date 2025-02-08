@@ -94,5 +94,28 @@ public class ChallengeController implements ChallengeControllerInterface{
         );
     }
 
+    // 챌린지 참여 API
+    @PostMapping("/{challengeId}")
+    @Operation(summary = "챌린지 참여 API", description = "챌린지 참여")
+    public BaseResponse<ChallengeIdResponseDto> joinChallenge(
+            @CurrentMember Member member,
+            @PathVariable Long challengeId
+    ) {
+        return BaseResponse.onSuccess(
+                challengeCommandService.joinChallenge(member, challengeId)
+        );
+    }
+
+    // 챌린지 참여 취소 API
+    @DeleteMapping("/{challengeId}")
+    @Operation(summary = "챌린지 참여 취소 API", description = "챌린지 참여 취소")
+    public BaseResponse<ChallengeIdResponseDto> joinCancelChallenge(
+            @CurrentMember Member member,
+            @PathVariable Long challengeId
+    ) {
+        return BaseResponse.onSuccess(
+                challengeCommandService.joinCancelChallenge(member, challengeId)
+        );
+    }
 
 }

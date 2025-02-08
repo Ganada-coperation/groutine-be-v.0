@@ -2,7 +2,7 @@ package com.example.groutine.domain.participation.repository;
 
 import com.example.groutine.domain.challenge.entity.Challenge;
 import com.example.groutine.domain.member.entity.Member;
-import com.example.groutine.domain.participation.entity.ChallengeMember;
+import com.example.groutine.domain.challenge.entity.ChallengeMember;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

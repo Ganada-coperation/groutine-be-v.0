@@ -1,6 +1,5 @@
 package com.example.groutine.domain.participation.entity;
 
-import com.example.groutine.domain.challenge.entity.ChallengeMission;
 import com.example.groutine.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -22,7 +21,7 @@ public class ChallengeMissionVerification {
 
     private String content;
 
-    private LocalDateTime verifyDate; //인증하 날짜
+    private LocalDateTime verifyDate; //인증한 날짜
 
     @Enumerated(EnumType.STRING)
     private VerifiyStatus status;

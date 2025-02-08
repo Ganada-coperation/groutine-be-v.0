@@ -1,4 +1,4 @@
-package com.example.groutine.domain.challenge.entity;
+package com.example.groutine.domain.participation.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

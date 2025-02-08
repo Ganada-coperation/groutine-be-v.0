@@ -1,6 +1,6 @@
 package com.example.groutine.domain.challenge.dto.response;
 
-import com.example.groutine.domain.challenge.entity.ChallengeMissionType;
+import com.example.groutine.domain.participation.entity.ChallengeMissionType;
 import lombok.Builder;
 import lombok.Getter;
 

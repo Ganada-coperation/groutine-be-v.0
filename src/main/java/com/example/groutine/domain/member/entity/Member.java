@@ -1,7 +1,7 @@
 package com.example.groutine.domain.member.entity;
 
 import com.example.groutine.domain.challenge.entity.Challenge;
-import com.example.groutine.domain.participation.entity.ChallengeMember;
+import com.example.groutine.domain.challenge.entity.ChallengeMember;
 import com.example.groutine.domain.participation.entity.ChallengeMissionVerification;
 import com.example.groutine.global.common.base.BaseEntity;
 import com.example.groutine.global.common.enums.Status;

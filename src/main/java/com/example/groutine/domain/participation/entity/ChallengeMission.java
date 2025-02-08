@@ -1,6 +1,6 @@
-package com.example.groutine.domain.challenge.entity;
+package com.example.groutine.domain.participation.entity;
 
-import com.example.groutine.domain.participation.entity.ChallengeMissionVerification;
+import com.example.groutine.domain.challenge.entity.Challenge;
 import com.example.groutine.global.common.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
