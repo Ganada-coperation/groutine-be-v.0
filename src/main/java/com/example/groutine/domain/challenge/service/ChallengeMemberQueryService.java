@@ -1,6 +1,7 @@
 package com.example.groutine.domain.challenge.service;
 
 import com.example.groutine.domain.challenge.dto.request.ChallengeStatus;
+import com.example.groutine.domain.challenge.dto.response.ChallengeActivityResponse.ChallengeActivityListResponseDto;
 import com.example.groutine.domain.challenge.dto.response.ChallengeActivityResponse.ChallengeActivityResponseDto;
 import com.example.groutine.domain.challenge.dto.response.ChallengeProgressListResponseDto;
 import com.example.groutine.domain.challenge.dto.response.ChallengeRankingListResponseDto;
@@ -33,13 +34,42 @@ public class ChallengeMemberQueryService {
     private final ChallengeMemberRepository challengeMemberRepository;
 
     // 내 챌린지 활동 조회 (이전 참여한 챌린지, 현재 참여 중인 챌린지)
-    public ChallengeActivityResponseDto getMyChallengeActivitieList(
+    public ChallengeActivityListResponseDto getMyChallengeActivitieList(
             Member member,
             Pageable pageable,
             ChallengeStatus status
     ) {
 
-        return ;
+        List<ChallengeActivityResponseDto> challengeActivityResponseDtoList = new ArrayList<>();
+
+        // 현재 시간 기준으로 상태에 따라 챌린지 조회
+        List<ChallengeMember> challengeMembers = switch (status) {
+            case COMPLETED -> challengeMemberRepository.findCompletedChallenges(member, pageable);
+            case IN_PROGRESS -> challengeMemberRepository.findInProgressChallenges(member, pageable);
+            default -> throw new IllegalArgumentException("Invalid ChallengeStatus");
+        };
+
+        // 상태에 따라 응답 DTO 매핑 (맵퍼 사용)
+        for (ChallengeMember challengeMember : challengeMembers) {
+            Challenge challenge = challengeMember.getChallenge();
+            // todo : 여기 나중에 좀 깔끔하게 변경하기
+            if (status == ChallengeStatus.COMPLETED) {
+                int participantCount = challenge.getChallengeMemberList().size();
+                int myAchievementRate = calculateAchievementRate(challengeMember);
+                challengeActivityResponseDtoList.add(
+                        ChallengeMemberMapper.toCompletedChallengeActivityResponseDto(challenge, participantCount, myAchievementRate)
+                );
+            } else {
+                challengeActivityResponseDtoList.add(
+                        ChallengeMemberMapper.toBeforeCompletedChallengeActivityResponseDto(challenge)
+                );
+            }
+        }
+
+        // 최종 응답 반환
+        return ChallengeActivityListResponseDto.builder()
+                .challengeActivityResponseDtoList(challengeActivityResponseDtoList)
+                .build();
     }
 
     // 챌린지 실시간 랭킹 조회 (내가 참여하는 챌린지가 맞는 지는 앞단에서 검증)
@@ -153,4 +183,11 @@ public class ChallengeMemberQueryService {
         }
         return Math.min(100, (myRanking.score() * 100) / 100); // 예: score를 100점 만점 기준으로 계산
     }
+
+    // 달성률 계산 (100점 만점 기준 예시)
+    private int calculateAchievementRate(ChallengeMember challengeMember) {
+        int maxScore = 100; // 임의의 최대 점수
+        return Math.min(100, (challengeMember.getScore() * 100) / maxScore);
+    }
+
 }

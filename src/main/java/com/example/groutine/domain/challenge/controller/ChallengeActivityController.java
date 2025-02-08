@@ -1,6 +1,7 @@
 package com.example.groutine.domain.challenge.controller;
 
 import com.example.groutine.domain.challenge.dto.request.ChallengeStatus;
+import com.example.groutine.domain.challenge.dto.response.ChallengeActivityResponse.ChallengeActivityListResponseDto;
 import com.example.groutine.domain.challenge.dto.response.ChallengeActivityResponse.ChallengeActivityResponseDto;
 import com.example.groutine.domain.challenge.dto.response.ChallengeProgressListResponseDto;
 import com.example.groutine.domain.challenge.dto.response.ChallengeRankingListResponseDto;
@@ -27,7 +28,7 @@ public class ChallengeActivityController {
     // 내 챌린지 활동 조회 (이전 참여한 챌린지, 현재 참여 중인 챌린지)
     @GetMapping("")
     @Operation(summary = "내 챌린지 활동 내역 조회 API", description = "진행중, 종료, 앞으로 시작할 챌린지 조회")
-    public BaseResponse<ChallengeActivityResponseDto> getMyChallengeActivities(
+    public BaseResponse<ChallengeActivityListResponseDto> getMyChallengeActivities(
             @CurrentMember Member member,
             @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
             @RequestParam(required = false) ChallengeStatus status // todo: 진행중, 챌린지 종료, 앞으로 시작할 챌린지
