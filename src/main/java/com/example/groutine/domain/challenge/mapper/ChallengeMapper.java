@@ -36,8 +36,8 @@ public class ChallengeMapper {
                                                 .challengeId(challenge.getId())
                                                 .title(challenge.getTitle())
                                                 .thumbnail(challenge.getThumbnail())
-                                                .startAt(DateUtil.formatDate(challenge.getStartDate())) //todo: 날짜 형식 맞춰서 주기 (유틸 사용하기
-                                                .endAt(DateUtil.formatDate(challenge.getEndDate()))
+                                                .startDate(DateUtil.formatDate(challenge.getStartDate())) //todo: 날짜 형식 맞춰서 주기 (유틸 사용하기
+                                                .endDate(DateUtil.formatDate(challenge.getEndDate()))
                                                 .daysRemaining(DateUtil.calculateDaysRemaining(challenge.getStartDate())) // todo: 남은 날짜 계산 (유틸 사용하기
                                                 .participantCount(challenge.getChallengeMemberList().size())
                                                 .build()
@@ -53,8 +53,8 @@ public class ChallengeMapper {
                 .writerId(challenge.getWriter().getId())
                 .title(challenge.getTitle())
                 .thumbnail(challenge.getThumbnail())
-                .startAt(DateUtil.formatDate(challenge.getStartDate())) //todo: 날짜 형식 맞춰서 주기 (유틸 사용하기
-                .endAt(DateUtil.formatDate(challenge.getEndDate()))
+                .startDate(DateUtil.formatDate(challenge.getStartDate())) //todo: 날짜 형식 맞춰서 주기 (유틸 사용하기
+                .endDate(DateUtil.formatDate(challenge.getEndDate()))
                 .daysRemaining(DateUtil.calculateDaysRemaining(challenge.getStartDate())) // todo: 남은 날짜 계산 (유틸 사용하기
                 .participantCount(challenge.getChallengeMemberList().size())
                 .challengeDescription(challenge.getDescription())

@@ -13,8 +13,8 @@ public class ChallengeDetailResponseDto {
     private Long writerId;
     private String title;
     private String thumbnail;
-    private String startAt;
-    private String endAt;
+    private String startDate;
+    private String endDate;
     private int daysRemaining;
     private int participantCount;
     private String challengeDescription;

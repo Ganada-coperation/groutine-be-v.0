@@ -18,8 +18,8 @@ public class ChallengeListResponseDto {
             Long challengeId,
             String title,
             String thumbnail,
-            String startAt,
-            String endAt,
+            String startDate,
+            String endDate,
             int daysRemaining,
             int participantCount
     ) {
