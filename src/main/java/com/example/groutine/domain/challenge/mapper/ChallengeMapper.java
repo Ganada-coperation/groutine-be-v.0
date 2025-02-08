@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
 public class ChallengeMapper {
 
     // 챌린지 엔티티로 변환
