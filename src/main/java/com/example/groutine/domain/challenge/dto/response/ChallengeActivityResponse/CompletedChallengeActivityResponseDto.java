@@ -1,5 +1,11 @@
 package com.example.groutine.domain.challenge.dto.response.ChallengeActivityResponse;
 
-public class CompletedChallengeActivityResponseDto extends ChallengeActivityResponseDto{
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 
+@Builder
+@AllArgsConstructor
+public class CompletedChallengeActivityResponseDto extends ChallengeActivityResponseDto{
+    private int participantCount;
+    private int myAchievementRate;
 }

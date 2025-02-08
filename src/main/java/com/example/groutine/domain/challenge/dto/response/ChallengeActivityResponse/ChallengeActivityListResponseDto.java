@@ -11,5 +11,5 @@ import java.util.List;
 @AllArgsConstructor
 public class ChallengeActivityListResponseDto
 {
-    List<ChallengeActivityResponseDto> challengeActivityResponseDtoList;
+    private List<ChallengeActivityResponseDto> challengeActivityResponseDtoList;
 }

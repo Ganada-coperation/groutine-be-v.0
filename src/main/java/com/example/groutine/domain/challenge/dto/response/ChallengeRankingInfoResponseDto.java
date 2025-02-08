@@ -4,10 +4,10 @@ import lombok.Builder;
 
 @Builder
 public record ChallengeRankingInfoResponseDto(
-        Integer myRank,
-        Integer myScore,
-        Integer myAchievementRate,
-        Integer totalParticipantCount,
-        Integer totalAchieverCount
+        int myRank,
+        int myScore,
+        int myAchievementRate,
+        int totalParticipantCount,
+        int totalAchieverCount
 ) {
 }

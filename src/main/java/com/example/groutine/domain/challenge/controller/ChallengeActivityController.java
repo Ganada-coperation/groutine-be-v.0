@@ -37,7 +37,7 @@ public class ChallengeActivityController {
     }
 
     // 참여한 챌린지 실시간 랭킹 조회
-    // todo : 캐싱해야 함
+    // todo : 캐싱 고민 좀
     // todo : 내가 참여하는 챌린지가 맞는 지 어노테이션으로 앞 단에서 검즘
     @GetMapping("/{challengeId}/ranking")
     @Operation(summary = "챌린지 랭킹 조회 API", description = "하나에 챌린지에 대한 랭킹 정보 조회, 하루 마다 갱신 되는 값")
@@ -48,8 +48,8 @@ public class ChallengeActivityController {
         return BaseResponse.onSuccess(challengeMemberQueryService.getChallengeRankingList(member, challengeId));
     }
 
-    // 참여한 챌린지 실시간 랭킹 조회
-    // todo : 캐싱해야 함
+    // 참여한 챌린지 실시간 랭킹 (내 정보)
+    // todo : 캐싱 고민 좀
     // todo : 내가 참여하는 챌린지가 맞는 지 어노테이션으로 앞 단에서 검즘
     @GetMapping("/{challengeId}/ranking-info")
     @Operation(summary = "챌린지 랭킹 기타 정보 조회 API", description = "챌린지 랭킹 기타 정보 조회 (내 랭킹, 달성한 사람 수 등등)")
