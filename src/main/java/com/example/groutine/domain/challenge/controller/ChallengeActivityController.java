@@ -1,7 +1,6 @@
-package com.example.groutine.domain.participation.controller;
+package com.example.groutine.domain.challenge.controller;
 
 import com.example.groutine.domain.member.entity.Member;
-import com.example.groutine.domain.participation.service.ChallengeParticipationService;
 import com.example.groutine.global.common.base.BaseResponse;
 import com.example.groutine.global.config.security.auth.CurrentMember;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -15,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "챌린지 활동 관련 API", description = "챌린지 참여 현황 및 활동을 다룸")
 public class ChallengeActivityController {
 
-    private final ChallengeParticipationService challengeParticipationService;
-    private final ChallengeMissionService challengeMissionService;
 
     // 내 챌린지 활동 조회 (이전 참여한 챌린지, 현재 참여 중인 챌린지)
     @GetMapping("")

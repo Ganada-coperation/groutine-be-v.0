@@ -1,4 +1,4 @@
-package com.example.groutine.domain.participation.entity;
+package com.example.groutine.domain.mission.entity;
 
 import com.example.groutine.domain.member.entity.Member;
 import jakarta.persistence.*;

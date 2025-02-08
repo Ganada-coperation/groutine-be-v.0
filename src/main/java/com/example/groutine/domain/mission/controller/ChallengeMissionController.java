@@ -1,4 +1,4 @@
-package com.example.groutine.domain.participation.controller;
+package com.example.groutine.domain.mission.controller;
 
 import com.example.groutine.domain.member.entity.Member;
 import com.example.groutine.global.common.base.BaseResponse;

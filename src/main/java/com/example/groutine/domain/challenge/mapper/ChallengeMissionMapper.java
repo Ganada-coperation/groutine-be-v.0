@@ -2,7 +2,7 @@ package com.example.groutine.domain.challenge.mapper;
 
 import com.example.groutine.domain.challenge.dto.request.ChallengeMissionRequestDto;
 import com.example.groutine.domain.challenge.entity.Challenge;
-import com.example.groutine.domain.participation.entity.ChallengeMission;
+import com.example.groutine.domain.mission.entity.ChallengeMission;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.groutine.domain.participation.controller;
+package com.example.groutine.domain.mission.controller;
 
 import com.example.groutine.domain.member.entity.Member;
 import com.example.groutine.global.common.base.BaseResponse;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/challenge/{challengeId}/verify-posts")
 @Tag(name = "챌린지 미션 인증 사진 관련 API", description = "참여한 챌린지의 미션 인증 사진을 다룸")
-public class ChallengePhotoController {
+public class ChallengeMissionPostController {
 
     // 참여한 챌린지 날짜별 인증 사진 리스트 조회
     // todo: 내가 참여하는 챌린지가 맞는 지 어노테이션으로 앞 단에서 검즘

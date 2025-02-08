@@ -1,4 +1,4 @@
-package com.example.groutine.domain.participation.entity;
+package com.example.groutine.domain.mission.entity;
 
 import com.example.groutine.domain.challenge.entity.Challenge;
 import com.example.groutine.global.common.base.BaseEntity;

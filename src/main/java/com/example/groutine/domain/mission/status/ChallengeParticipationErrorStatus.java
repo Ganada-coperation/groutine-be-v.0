@@ -1,4 +1,4 @@
-package com.example.groutine.domain.participation.status;
+package com.example.groutine.domain.mission.status;
 
 import com.example.groutine.global.common.exception.code.BaseCodeDto;
 import com.example.groutine.global.common.exception.code.BaseCodeInterface;
