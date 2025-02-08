@@ -1,4 +1,4 @@
-package com.example.groutine.domain.mission.repository;
+package com.example.groutine.domain.challenge.repository;
 
 import com.example.groutine.domain.challenge.entity.Challenge;
 import com.example.groutine.domain.member.entity.Member;

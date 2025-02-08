@@ -35,7 +35,7 @@ public class ChallengeActivityController {
         return BaseResponse.onSuccess(challengeMemberQueryService.getMyChallengeActivitieList(member, pageable, status));
     }
 
-    // 참여한 챌린지 실시간 랭킹 조회
+    // 참여한 챌린지 실시간 랭킹 조회 todo 페이징 처리
     // todo : 캐싱 고민 좀
     // todo : 내가 참여하는 챌린지가 맞는 지 어노테이션으로 앞 단에서 검즘
     @GetMapping("/{challengeId}/ranking")
@@ -57,6 +57,6 @@ public class ChallengeActivityController {
             @PathVariable Long challengeId,
             @PageableDefault(size = 15, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable
     ) {
-        return BaseResponse.onSuccess(challengeMemberQueryService.getChallengeProgress(member, challengeId));
+        return BaseResponse.onSuccess(challengeMemberQueryService.getChallengeProgress(member, challengeId, pageable));
     }
 }

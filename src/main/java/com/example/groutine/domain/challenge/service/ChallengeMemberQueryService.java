@@ -8,7 +8,10 @@ import com.example.groutine.domain.challenge.entity.Challenge;
 import com.example.groutine.domain.challenge.entity.ChallengeMember;
 import com.example.groutine.domain.challenge.mapper.ChallengeMemberMapper;
 import com.example.groutine.domain.member.entity.Member;
-import com.example.groutine.domain.mission.repository.ChallengeMemberRepository;
+import com.example.groutine.domain.challenge.repository.ChallengeMemberRepository;
+import com.example.groutine.domain.mission.entity.ChallengeMissionType;
+import com.example.groutine.domain.mission.entity.ChallengeMissionVerification;
+import com.example.groutine.domain.mission.service.ChallengeMissionVerificationQueryService;
 import com.example.groutine.domain.mission.status.ChallengeParticipationErrorStatus;
 import com.example.groutine.global.common.exception.RestApiException;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +28,7 @@ import java.util.List;
 public class ChallengeMemberQueryService {
 
     private final ChallengeQueryService challengeQueryService;
+    private final ChallengeMissionVerificationQueryService challengeMissionVerificationQueryService;
 
     private final ChallengeMemberRepository challengeMemberRepository;
 
@@ -73,7 +77,8 @@ public class ChallengeMemberQueryService {
     // 챌린지 진행 상태 조회 (날짜 별, 완료 미완료) (내가 참여하는 챌린지가 맞는 지는 앞단에서 검증)
     public ChallengeProgressListResponseDto getChallengeProgress(
             Member member,
-            Long challengeId
+            Long challengeId,
+            Pageable pageable
     ) {
 
         // 챌린지 조회
@@ -82,9 +87,12 @@ public class ChallengeMemberQueryService {
         // 챌린지 멤버 조회
         ChallengeMember challengeMember = findChallengeMember(member, challenge);
 
-        // 미션 인증 관련 조회 todo: 미션 인증 관련 조회 로직 추가
+        // 미션 인증 관련 조회 (필수인 미션만 조회)
+        List<ChallengeMissionVerification> challengeMissionVerificationList
+        = challengeMissionVerificationQueryService
+                .getMyMissionVerificationList(challengeMember, pageable, ChallengeMissionType.REQUIRED);
 
-        return ;
+        return ChallengeMemberMapper.toChallengeProgressListResponseDto(challengeMissionVerificationList);
     }
 
     // ChallengeMemeber 조회
