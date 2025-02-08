@@ -1,6 +1,7 @@
 package com.example.groutine.domain.challenge.entity;
 
 import com.example.groutine.domain.member.entity.Member;
+import com.example.groutine.domain.mission.entity.ChallengeMissionVerification;
 import com.example.groutine.global.common.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -8,6 +9,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -30,6 +34,9 @@ public class ChallengeMember extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "challenge_id")
     private Challenge challenge;
+
+    @OneToMany(mappedBy = "challengeMember", cascade = CascadeType.ALL)
+    private List<ChallengeMissionVerification> challengeMissionVerificationList = new ArrayList<>();
 
     @Builder
     public ChallengeMember(Member member, Challenge challenge) {

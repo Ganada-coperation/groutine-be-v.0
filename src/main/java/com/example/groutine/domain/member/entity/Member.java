@@ -53,9 +53,6 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<ChallengeMember> challengeMemberList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<ChallengeMissionVerification> challengeMissionVerificationList = new ArrayList<>();
-
     @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL)
     private List<Challenge> challengeList = new ArrayList<>();
 

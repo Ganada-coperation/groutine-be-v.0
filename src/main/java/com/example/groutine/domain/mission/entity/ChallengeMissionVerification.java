@@ -1,5 +1,6 @@
 package com.example.groutine.domain.mission.entity;
 
+import com.example.groutine.domain.challenge.entity.ChallengeMember;
 import com.example.groutine.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -31,7 +32,7 @@ public class ChallengeMissionVerification {
     private ChallengeMission challengeMission;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @JoinColumn(name = "challenge_member_id")
+    private ChallengeMember challengeMember;
 
 }
