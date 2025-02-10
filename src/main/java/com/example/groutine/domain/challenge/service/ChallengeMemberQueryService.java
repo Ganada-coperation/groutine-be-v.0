@@ -13,7 +13,7 @@ import com.example.groutine.domain.challenge.repository.ChallengeMemberRepositor
 import com.example.groutine.domain.mission.entity.ChallengeMissionType;
 import com.example.groutine.domain.mission.entity.ChallengeMissionVerification;
 import com.example.groutine.domain.mission.service.ChallengeMissionVerificationQueryService;
-import com.example.groutine.domain.mission.status.ChallengeParticipationErrorStatus;
+import com.example.groutine.domain.mission.status.ChallengeMissionErrorStatus;
 import com.example.groutine.global.common.exception.RestApiException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -128,7 +128,7 @@ public class ChallengeMemberQueryService {
     // ChallengeMemeber 조회
     public ChallengeMember findChallengeMember(Member member, Challenge challenge) {
         return challengeMemberRepository.findByMemberAndChallenge(member, challenge)
-                .orElseThrow(() -> new RestApiException(ChallengeParticipationErrorStatus.NOT_PARTICIPATED_CHALLENGE));
+                .orElseThrow(() -> new RestApiException(ChallengeMissionErrorStatus.NOT_PARTICIPATED_CHALLENGE));
     }
 
     // 순위 계산된 챌린지 랭킹을 응답값으로 반환

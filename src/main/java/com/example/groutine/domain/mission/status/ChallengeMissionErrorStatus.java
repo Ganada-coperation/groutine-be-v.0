@@ -8,10 +8,10 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 @RequiredArgsConstructor
-public enum ChallengeParticipationErrorStatus implements BaseCodeInterface {
+public enum ChallengeMissionErrorStatus implements BaseCodeInterface {
     NOT_PARTICIPATED_CHALLENGE(HttpStatus.BAD_REQUEST, "CPE001", "참여하지 않은 챌린지 입니다."),
-    ALREADY_PARTICIPATED_CHALLENGE(HttpStatus.BAD_REQUEST, "CPE002", "이미 참여한 챌린지 입니다.")
-
+    ALREADY_PARTICIPATED_CHALLENGE(HttpStatus.BAD_REQUEST, "CPE002", "이미 참여한 챌린지 입니다."),
+    VERIFICATION_POST_NOT_FOUND(HttpStatus.NOT_FOUND, "CPE003", "인증 게시글을 찾을 수 없습니다.")
     ;
 
     private final HttpStatus httpStatus;

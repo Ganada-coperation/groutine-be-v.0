@@ -5,7 +5,7 @@ import com.example.groutine.domain.challenge.entity.Challenge;
 import com.example.groutine.domain.challenge.entity.ChallengeMember;
 import com.example.groutine.domain.member.entity.Member;
 import com.example.groutine.domain.challenge.repository.ChallengeMemberRepository;
-import com.example.groutine.domain.mission.status.ChallengeParticipationErrorStatus;
+import com.example.groutine.domain.mission.status.ChallengeMissionErrorStatus;
 import com.example.groutine.global.common.exception.RestApiException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ public class ChallengeMemberCommendService {
 
         // 멤버가 참여하지 않은 챌린지가 맞는 지 확인
         if (challengeMemberRepository.existsByMemberAndChallenge(member, challenge)) {
-            throw new RestApiException(ChallengeParticipationErrorStatus.ALREADY_PARTICIPATED_CHALLENGE);
+            throw new RestApiException(ChallengeMissionErrorStatus.ALREADY_PARTICIPATED_CHALLENGE);
         }
 
         challengeMemberRepository.save(

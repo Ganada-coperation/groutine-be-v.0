@@ -17,4 +17,7 @@ public interface ChallengeMissionVerificationRepository extends JpaRepository<Ch
             Pageable pageable
     );
 
+    // 챌린지와 날짜(해당 날(ex 2월 1일) 안에 생성된 것들)에 맞는 미션 모든 사람들의 미션 인증 조회
+    List<ChallengeMissionVerification>
+
 }
