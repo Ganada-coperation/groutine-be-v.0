@@ -60,6 +60,7 @@ public class ChallengeController{
     }
 
     // 챌린지 만들기 API
+    // todo: 미션까지 한방에 받을 껀지, 미션 저장 나눌지 생각 -> 나누는 게 좋을 듯 ㅇㅅㅇ
     @PostMapping("")
     @Operation(summary = "챌린지 만들기 API", description = "챌린지 만들기")
     public BaseResponse<ChallengeIdResponseDto> createChallenge(
