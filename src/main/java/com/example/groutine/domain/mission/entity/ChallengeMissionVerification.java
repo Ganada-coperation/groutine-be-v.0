@@ -2,6 +2,7 @@ package com.example.groutine.domain.mission.entity;
 
 import com.example.groutine.domain.challenge.entity.ChallengeMember;
 import com.example.groutine.domain.member.entity.Member;
+import com.example.groutine.global.common.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ChallengeMissionVerification {
+public class ChallengeMissionVerification extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

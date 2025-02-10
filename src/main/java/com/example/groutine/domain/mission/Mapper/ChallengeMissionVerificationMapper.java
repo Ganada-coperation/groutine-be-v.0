@@ -1,7 +1,10 @@
 package com.example.groutine.domain.mission.Mapper;
 
+import com.example.groutine.domain.mission.dto.response.MissionListResponseDto;
 import com.example.groutine.domain.mission.dto.response.VerificationPostDetailResponse;
 import com.example.groutine.domain.mission.dto.response.VerificationPostListResponseDto;
+import com.example.groutine.domain.mission.entity.ChallengeMission;
+import com.example.groutine.domain.mission.entity.ChallengeMissionType;
 import com.example.groutine.domain.mission.entity.ChallengeMissionVerification;
 
 import java.util.List;
