@@ -17,7 +17,8 @@ public interface ChallengeMissionVerificationRepository extends JpaRepository<Ch
             Pageable pageable
     );
 
-    // 챌린지와 날짜(해당 날(ex 2월 1일) 안에 생성된 것들)에 맞는 미션 모든 사람들의 미션 인증 조회
-    List<ChallengeMissionVerification>
+    // todo : 최적화 필요
+    // 챌린지 아이디와 생성일자로 미션 인증 조회
+    List<ChallengeMissionVerification> findByChallengeMember_Challenge_ChallengeIdAndCreatedAtBetween(Long challengeId, Object atStartOfDay, Object atTime, Pageable pageable);
 
 }

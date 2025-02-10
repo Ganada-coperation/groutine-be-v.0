@@ -9,6 +9,9 @@ import com.example.groutine.global.config.security.auth.CurrentMember;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,9 +32,11 @@ public class ChallengeMissionPostController {
     @GetMapping("/{date}")
     @Operation(summary = "날짜 별 미션 인증 사진 리스트 조회 API", description = "날짜 별 미션 인증 사진 리스트 조회")
     public BaseResponse<VerificationPostListResponseDto> getVerificationPostsByDate(
-            @CurrentMember Member member, @PathVariable Long challengeId, @PathVariable LocalDate date
+            @CurrentMember Member member,
+            @PathVariable Long challengeId, @PathVariable LocalDate date,
+            @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable
     ) {
-        return BaseResponse.onSuccess(challengeMissionVerificationQueryService.getVerificationPostsByDate(member, challengeId, date));
+        return BaseResponse.onSuccess(challengeMissionVerificationQueryService.getVerificationPostsByDate(challengeId, date, pageable));
     }
 
     // 참여한 챌린지 날짜별 인증 사진 상세 조회
