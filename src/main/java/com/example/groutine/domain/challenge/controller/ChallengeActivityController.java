@@ -3,8 +3,10 @@ package com.example.groutine.domain.challenge.controller;
 import com.example.groutine.domain.challenge.dto.request.ChallengeStatus;
 import com.example.groutine.domain.challenge.dto.response.ChallengeActivityResponse.ChallengeActivityListResponseDto;
 import com.example.groutine.domain.challenge.dto.response.ChallengeActivityResponse.ChallengeActivityResponseDto;
+import com.example.groutine.domain.challenge.dto.response.ChallengeIdResponseDto;
 import com.example.groutine.domain.challenge.dto.response.ChallengeProgressListResponseDto;
 import com.example.groutine.domain.challenge.dto.response.ChallengeRankingListResponseDto;
+import com.example.groutine.domain.challenge.service.ChallengeMemberCommendService;
 import com.example.groutine.domain.challenge.service.ChallengeMemberQueryService;
 import com.example.groutine.domain.member.entity.Member;
 import com.example.groutine.global.common.base.BaseResponse;
@@ -24,6 +26,31 @@ import org.springframework.web.bind.annotation.*;
 public class ChallengeActivityController {
 
     private final ChallengeMemberQueryService challengeMemberQueryService;
+    private final ChallengeMemberCommendService challengeMemberCommendService;
+
+    // 챌린지 참여 API
+    @PostMapping("/{challengeId}")
+    @Operation(summary = "챌린지 참여 API", description = "챌린지 참여")
+    public BaseResponse<ChallengeIdResponseDto> joinChallenge(
+            @CurrentMember Member member,
+            @PathVariable Long challengeId
+    ) {
+        return BaseResponse.onSuccess( // todo: 어떤 응답 값을 줄지 고민 ㄱㄱ
+                challengeMemberCommendService.joinChallenge(member, challengeId)
+        );
+    }
+
+    // 챌린지 참여 취소 API
+    @DeleteMapping("/{challengeId}")
+    @Operation(summary = "챌린지 참여 취소 API", description = "챌린지 참여 취소")
+    public BaseResponse<ChallengeIdResponseDto> joinCancelChallenge(
+            @CurrentMember Member member,
+            @PathVariable Long challengeId
+    ) {
+        return BaseResponse.onSuccess( // todo: 어떤 응답 값을 줄지 고민 ㄱㄱ
+                challengeMemberCommendService.joinCancelChallenge(member, challengeId)
+        );
+    }
 
     // 내 챌린지 활동 조회 (이전 참여한 챌린지, 현재 참여 중인 챌린지)
     @GetMapping("")

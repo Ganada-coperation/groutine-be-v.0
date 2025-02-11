@@ -25,7 +25,6 @@ public class ChallengeController{
 
     private final ChallengeQueryService challengeQueryService;
     private final ChallengeCommandService challengeCommandService;
-    private final ChallengeMemberCommendService challengeMemberCommendService;
 
     // 챌린지 리스트 조회 API
     @GetMapping("")
@@ -94,30 +93,6 @@ public class ChallengeController{
     ) {
         return BaseResponse.onSuccess(
             challengeCommandService.deleteChallenge(challengeId)
-        );
-    }
-
-    // 챌린지 참여 API
-    @PostMapping("/{challengeId}")
-    @Operation(summary = "챌린지 참여 API", description = "챌린지 참여")
-    public BaseResponse<ChallengeIdResponseDto> joinChallenge(
-            @CurrentMember Member member,
-            @PathVariable Long challengeId
-    ) {
-        return BaseResponse.onSuccess( // todo: 어떤 응답 값을 줄지 고민 ㄱㄱ
-                challengeMemberCommendService.joinChallenge(member, challengeId)
-        );
-    }
-
-    // 챌린지 참여 취소 API
-    @DeleteMapping("/{challengeId}")
-    @Operation(summary = "챌린지 참여 취소 API", description = "챌린지 참여 취소")
-    public BaseResponse<ChallengeIdResponseDto> joinCancelChallenge(
-            @CurrentMember Member member,
-            @PathVariable Long challengeId
-    ) {
-        return BaseResponse.onSuccess( // todo: 어떤 응답 값을 줄지 고민 ㄱㄱ
-                challengeMemberCommendService.joinCancelChallenge(member, challengeId)
         );
     }
 
