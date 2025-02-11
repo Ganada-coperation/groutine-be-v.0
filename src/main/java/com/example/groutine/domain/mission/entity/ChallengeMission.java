@@ -12,6 +12,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ChallengeMission extends BaseEntity {
+// 챌린지에 종속되어 있는 미선
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

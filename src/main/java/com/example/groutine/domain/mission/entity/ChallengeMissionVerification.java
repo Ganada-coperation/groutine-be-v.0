@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ChallengeMissionVerification extends BaseEntity {
+    // 챌린지의 미션 인증을 위한 엔티티
+    // 해당 엔티티로 유저의 미션 인증 상태를 파악
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
