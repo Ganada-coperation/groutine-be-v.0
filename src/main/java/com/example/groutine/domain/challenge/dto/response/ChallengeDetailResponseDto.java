@@ -1,6 +1,6 @@
 package com.example.groutine.domain.challenge.dto.response;
 
-import com.example.groutine.domain.challenge.entity.ChallengeMissionType;
+import com.example.groutine.domain.mission.entity.ChallengeMissionType;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -13,8 +13,8 @@ public class ChallengeDetailResponseDto {
     private Long writerId;
     private String title;
     private String thumbnail;
-    private String startAt;
-    private String endAt;
+    private String startDate;
+    private String endDate;
     private int daysRemaining;
     private int participantCount;
     private String challengeDescription;

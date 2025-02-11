@@ -2,7 +2,7 @@ package com.example.groutine.domain.challenge.entity;
 
 import com.example.groutine.domain.challenge.dto.request.ChallengeRequestDto;
 import com.example.groutine.domain.member.entity.Member;
-import com.example.groutine.domain.participation.entity.ChallengeMember;
+import com.example.groutine.domain.mission.entity.ChallengeMission;
 import com.example.groutine.global.common.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;

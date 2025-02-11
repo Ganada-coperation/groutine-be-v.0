@@ -3,11 +3,12 @@ package com.example.groutine.domain.challenge.service;
 import com.example.groutine.domain.challenge.dto.request.ChallengeRequestDto;
 import com.example.groutine.domain.challenge.dto.response.ChallengeIdResponseDto;
 import com.example.groutine.domain.challenge.entity.Challenge;
-import com.example.groutine.domain.challenge.entity.ChallengeMission;
+import com.example.groutine.domain.mission.entity.ChallengeMission;
 import com.example.groutine.domain.challenge.mapper.ChallengeMapper;
 import com.example.groutine.domain.challenge.mapper.ChallengeMissionMapper;
 import com.example.groutine.domain.challenge.repository.ChallengeRepository;
 import com.example.groutine.domain.member.entity.Member;
+import com.example.groutine.domain.mission.service.ChallengeMissionCommandService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,8 @@ import java.util.List;
 public class ChallengeCommandService {
 
     private final ChallengeQueryService challengeQueryService;
+    private final ChallengeMissionCommandService challengeMissionCommandService;
+
     private final ChallengeRepository challengeRepository;
 
     // 챌린지 생성
@@ -38,6 +41,9 @@ public class ChallengeCommandService {
 
         // 챌린지 저장
         challengeRepository.save(challenge);
+
+        // 미션 저장
+        challengeMissionCommandService.saveChallengeMissions(challengeMissionList);
 
         // 챌린지 아이디 반환
         return new ChallengeIdResponseDto(challenge.getId());

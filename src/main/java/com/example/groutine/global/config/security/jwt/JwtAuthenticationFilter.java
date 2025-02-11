@@ -9,25 +9,28 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
 @RequiredArgsConstructor
-public class JwtAuthenticationFilter extends GenericFilterBean {
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
     // 오직 인증 정보를 설정하는 역할만 수행
 
     private final JwtProvider jwtTokenProvider;
     private final MemberService memberService;
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+                                    FilterChain chain)
             throws IOException, ServletException {
-        String token = jwtTokenProvider.resolveToken((HttpServletRequest) request); // 헤더에서 토큰을 받아옴
+        String token = jwtTokenProvider.resolveToken(request); // 헤더에서 토큰을 받아옴
 
         if (token != null && jwtTokenProvider.validateToken(token)) { // 토큰이 유효하다면
             Authentication authentication = getAuthentication(token); // 인증 정보를 받아옴

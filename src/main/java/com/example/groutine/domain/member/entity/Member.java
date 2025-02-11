@@ -1,8 +1,8 @@
 package com.example.groutine.domain.member.entity;
 
 import com.example.groutine.domain.challenge.entity.Challenge;
-import com.example.groutine.domain.participation.entity.ChallengeMember;
-import com.example.groutine.domain.participation.entity.ChallengeMissionVerification;
+import com.example.groutine.domain.challenge.entity.ChallengeMember;
+import com.example.groutine.domain.mission.entity.ChallengeMissionVerification;
 import com.example.groutine.global.common.base.BaseEntity;
 import com.example.groutine.global.common.enums.Status;
 import jakarta.persistence.*;
@@ -52,9 +52,6 @@ public class Member extends BaseEntity {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<ChallengeMember> challengeMemberList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<ChallengeMissionVerification> challengeMissionVerificationList = new ArrayList<>();
 
     @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL)
     private List<Challenge> challengeList = new ArrayList<>();

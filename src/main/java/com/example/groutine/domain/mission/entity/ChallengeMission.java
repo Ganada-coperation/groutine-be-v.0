@@ -1,6 +1,6 @@
-package com.example.groutine.domain.challenge.entity;
+package com.example.groutine.domain.mission.entity;
 
-import com.example.groutine.domain.participation.entity.ChallengeMissionVerification;
+import com.example.groutine.domain.challenge.entity.Challenge;
 import com.example.groutine.global.common.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,6 +12,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ChallengeMission extends BaseEntity {
+// 챌린지에 종속되어 있는 미선
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
