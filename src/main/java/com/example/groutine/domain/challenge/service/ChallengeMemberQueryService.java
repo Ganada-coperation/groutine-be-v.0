@@ -131,6 +131,12 @@ public class ChallengeMemberQueryService {
                 .orElseThrow(() -> new RestApiException(ChallengeMissionErrorStatus.NOT_PARTICIPATED_CHALLENGE));
     }
 
+    // ChallengeMemeber 조회
+    public ChallengeMember findChallengeMember(Member member, Long challengeId) {
+        return challengeMemberRepository.findByMemberAndChallengeId(member, challengeId)
+                .orElseThrow(() -> new RestApiException(ChallengeMissionErrorStatus.NOT_PARTICIPATED_CHALLENGE));
+    }
+
     // 순위 계산된 챌린지 랭킹을 응답값으로 반환
     private List<ChallengeRankingListResponseDto.ChallengeRankingResponseDto> getChallengeRankingList(
             List<ChallengeMember> challengeMembers

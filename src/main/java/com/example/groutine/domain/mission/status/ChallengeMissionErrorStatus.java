@@ -17,6 +17,7 @@ public enum ChallengeMissionErrorStatus implements BaseCodeInterface {
     MISSION_NOT_FOUND(HttpStatus.NOT_FOUND, "CPE006", "미션을 찾을 수 없습니다."),
     CHALLENGE_NOT_STARTED(HttpStatus.BAD_REQUEST, "CPE007", "아직 시작하지 않은 챌린지 입니다."),
     CHALLENGE_FINISHED(HttpStatus.BAD_REQUEST, "CPE008", "이미 종료된 챌린지 입니다."),
+    ALREADY_VERIFIED(HttpStatus.BAD_REQUEST, "CPE009", "이미 인증하셨습니다."),
     ;
 
     private final HttpStatus httpStatus;

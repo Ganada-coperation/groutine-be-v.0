@@ -5,6 +5,7 @@ import com.example.groutine.domain.member.entity.Member;
 import com.example.groutine.global.common.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -35,5 +36,15 @@ public class ChallengeMissionVerification extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "challenge_member_id")
     private ChallengeMember challengeMember;
+
+    @Builder
+    public ChallengeMissionVerification(String imageUrl, String content, LocalDateTime verifyDate, VerifiyStatus status, ChallengeMission challengeMission, ChallengeMember challengeMember) {
+        this.imageUrl = imageUrl;
+        this.content = content;
+        this.verifyDate = verifyDate;
+        this.status = status;
+        this.challengeMission = challengeMission;
+        this.challengeMember = challengeMember;
+    }
 
 }

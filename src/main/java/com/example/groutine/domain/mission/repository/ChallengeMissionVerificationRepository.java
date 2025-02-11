@@ -6,6 +6,8 @@ import com.example.groutine.domain.mission.entity.ChallengeMissionVerification;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import org.springframework.data.domain.Pageable;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ChallengeMissionVerificationRepository extends JpaRepository<ChallengeMissionVerification, Long> {
@@ -21,4 +23,11 @@ public interface ChallengeMissionVerificationRepository extends JpaRepository<Ch
     // 챌린지 아이디와 생성일자로 미션 인증 조회
     List<ChallengeMissionVerification> findByChallengeMember_Challenge_ChallengeIdAndCreatedAtBetween(Long challengeId, Object atStartOfDay, Object atTime, Pageable pageable);
 
+    // 해당 날짜와 특정 미션 대한 내 미션 인증이 있는지 확인
+    boolean existsByChallengeMemberAndCreatedAtBetweenAndChallengeMission_ChallengeMissionId(
+            ChallengeMember challengeMember,
+            LocalDateTime startOfDay,
+            LocalDateTime endOfDay,
+            Long challengeMissionId
+    );
 }

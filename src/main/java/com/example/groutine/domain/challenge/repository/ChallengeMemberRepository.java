@@ -14,6 +14,7 @@ public interface ChallengeMemberRepository extends JpaRepository<ChallengeMember
 
     Boolean existsByMemberAndChallenge(Member member, Challenge challenge);
     Optional<ChallengeMember> findByMemberAndChallenge(Member member, Challenge challenge);
+    Optional<ChallengeMember> findByMemberAndChallengeId(Member member, Long challengeId);
 
     // 챌린지 실시간 랭킹 조회
     List<ChallengeMember> findByChallengeOrderByScoreDesc(Challenge challenge);

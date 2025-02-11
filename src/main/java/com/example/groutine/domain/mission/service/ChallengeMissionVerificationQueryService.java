@@ -66,4 +66,15 @@ public class ChallengeMissionVerificationQueryService {
         return ChallengeMissionVerificationMapper.toVerificationPostDetailResponse(challengeMissionVerification);
     }
 
+    // 해당 날짜와 특정 미션에 대한 미션 인증이 있는 지 확인
+    public boolean isExistVerificationPostByDateAndMission(
+            ChallengeMember challengeMember, Long missionId, LocalDate date
+            ) {
+        return challengeMissionVerificationRepository.existsByChallengeMemberAndCreatedAtBetweenAndChallengeMission_ChallengeMissionId(
+                challengeMember,
+                date.atStartOfDay(),
+                date.atTime(23, 59, 59),
+                missionId
+        );
+    }
 }
