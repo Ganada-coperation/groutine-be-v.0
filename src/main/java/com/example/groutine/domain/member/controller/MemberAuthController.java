@@ -39,6 +39,8 @@ public class MemberAuthController {
 
     }
 
+    // todo: 멤버 서비스로 옮기기
+    // todo: 멤버 컨트롤러로 옮기기
     @Operation(summary = "회원가입 API", description = "최초 멤버 정보를 등록하는 API입니다.")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "COMMON200", description = "성공"),
