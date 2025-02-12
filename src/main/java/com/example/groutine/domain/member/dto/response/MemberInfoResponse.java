@@ -1,11 +1,12 @@
-package com.example.groutine.domain.member.dto.request;
-
+package com.example.groutine.domain.member.dto.response;
 
 import com.example.groutine.domain.member.entity.Gender;
+import lombok.Builder;
 
 import java.time.LocalDateTime;
 
-public record MemberInfoRequest(
+@Builder
+public record MemberInfoResponse(
         String name,
         String profileImageUrl,
         LocalDateTime birth,

@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberCommandService {
     private final MemberRepository memberRepository;
 
-    private final MemberQueryService memberQueryService;
     private final MemberRefreshTokenService refreshTokenService;
 
     // 회원 저장
@@ -27,6 +26,7 @@ public class MemberCommandService {
         return memberRepository.save(member);
     }
 
+    // 현재 로그인한 멤버 정보를 가져오는 함수 todo : 어노테이션 만들 때 사용할 예정
     public Member getCurrentMember() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -45,28 +45,34 @@ public class MemberCommandService {
     }
 
     // 회원가입을 수행하는 함수
+    //이미 소셜 로그인 후, 인증 완료되면 멤버 엔티티는 생겨 있는 상태
+    //그 후 추가 정보를 입력받아 저장하는 메서드
     public MemberIdResponse signUp(Member member, MemberInfoRequest request) {
-        //이미 소셜 로그인 후, 인증 완료되면 멤버 엔티티는 생겨 있는 상태
-        //그 후 추가 정보를 입력받아 저장하는 메서드
-        Member loginMember = memberQueryService.findById(member.getId());
 
         // 기본 정보 저장 로직 작성 필요
-        loginMember.setName(request.getName());
+        member.updateMember(request);
 
-        return new MemberIdResponse(saveEntity(loginMember).getId());
+        return new MemberIdResponse(saveEntity(member).getId());
+    }
+
+    // 회원 정보 수정을 수행하는 함수
+    public MemberIdResponse patchMyInfo(Member member, MemberInfoRequest request) {
+
+        // 기본 정보 저장 로직 작성 필요
+        member.updateMember(request);
+
+        return new MemberIdResponse(saveEntity(member).getId());
     }
 
     // 회원 탈퇴 함수
     public MemberIdResponse withdrawal(Member member) {
-        // 멤버 soft delete
-        Member loginMember = memberQueryService.findById(member.getId());
 
         // refreshToken 삭제
-        refreshTokenService.deleteRefreshToken(loginMember);
+        refreshTokenService.deleteRefreshToken(member);
 
         // 멤버 soft delete
-        loginMember.delete();
+        member.delete();
 
-        return new MemberIdResponse(loginMember.getId());
+        return new MemberIdResponse(member.getId());
     }
 }

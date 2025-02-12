@@ -2,6 +2,7 @@ package com.example.groutine.domain.member.controller;
 
 import com.example.groutine.domain.member.dto.request.MemberInfoRequest;
 import com.example.groutine.domain.member.dto.response.MemberIdResponse;
+import com.example.groutine.domain.member.dto.response.MemberInfoResponse;
 import com.example.groutine.domain.member.entity.Member;
 import com.example.groutine.domain.member.service.MemberCommandService;
 import com.example.groutine.domain.member.service.MemberQueryService;
@@ -30,8 +31,8 @@ public class MemberController {
             @ApiResponse(responseCode = "COMMON200", description = "성공")
     })
     @GetMapping("")
-    public BaseResponse<> getMyInfo(@CurrentMember Member member) {
-        return BaseResponse.onSuccess(memberQueryService.getMyInfo(member));
+    public BaseResponse<MemberInfoResponse> getMyInfo(@CurrentMember Member member) {
+        return BaseResponse.onSuccess(memberQueryService.getMemberInfo(member));
     }
 
     @Operation(summary = "내 정보 수정 API", description = "내 정보를 수정하는 API입니다.")
@@ -39,7 +40,7 @@ public class MemberController {
             @ApiResponse(responseCode = "COMMON200", description = "성공")
     })
     @PatchMapping("")
-    public BaseResponse<> patchMyInfo(@CurrentMember Member member,
+    public BaseResponse<MemberIdResponse> patchMyInfo(@CurrentMember Member member,
                               @Valid @RequestBody MemberInfoRequest request) {
         return BaseResponse.onSuccess(memberCommandService.patchMyInfo(member, request));
     }

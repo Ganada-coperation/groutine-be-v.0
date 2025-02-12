@@ -2,12 +2,15 @@ package com.example.groutine.domain.member.entity;
 
 import com.example.groutine.domain.challenge.entity.Challenge;
 import com.example.groutine.domain.challenge.entity.ChallengeMember;
+import com.example.groutine.domain.member.dto.request.MemberInfoRequest;
 import com.example.groutine.domain.mission.entity.ChallengeMissionVerification;
 import com.example.groutine.global.common.base.BaseEntity;
 import com.example.groutine.global.common.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +30,7 @@ public class Member extends BaseEntity {
     private String profileImageUrl;
 
     @Setter
-    private String birth;
+    private LocalDateTime birth;
 
     @Setter
     private Gender gender;
@@ -58,12 +61,19 @@ public class Member extends BaseEntity {
 
 
     @Builder
-    public Member(String name, String email, LoginType loginType, String clientId) {
+    public Member(String name, LoginType loginType, String clientId) {
         this.name = name;
         this.role = Role.MEMBER;
         this.loginType = loginType;
         this.clientId = clientId;
         this.status = Status.ACTIVE;
+    }
+
+    public void updateMember(MemberInfoRequest request) {
+        this.name = request.name();
+        this.profileImageUrl = request.profileImageUrl();
+        this.birth = request.birth();
+        this.gender = request.gender();
     }
 
     public void changeRole(Role role) {

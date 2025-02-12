@@ -22,7 +22,6 @@ import java.util.Optional;
 public class AnonymousLoginStrategy implements LoginStrategy {
 
     private final MemberRepository memberRepository;
-    private final MemberMapper memberMapper;
     private final MemberCommandService memberCommandService;
     private final JwtProvider jwtProvider;
 
@@ -39,15 +38,15 @@ public class AnonymousLoginStrategy implements LoginStrategy {
         boolean isServiceMember = member.getName() != null;
         TokenInfo tokenInfo = generateToken(member);
 
-        return memberMapper.toLoginMember(member, tokenInfo, isServiceMember, member.getRole());
+        return MemberMapper.toLoginMember(member, tokenInfo, isServiceMember, member.getRole());
     }
 
     private MemberLoginResponse saveNewMember(String clientId, LoginType loginType) {
-        Member member = memberMapper.toMember(clientId, loginType);
+        Member member = MemberMapper.toMember(clientId, loginType);
         member.changeRole(Role.GUEST);
         Member newMember = memberCommandService.saveEntity(member);
         TokenInfo tokenInfo = generateToken(newMember);
-        return memberMapper.toLoginMember(newMember, tokenInfo, false, Role.GUEST);
+        return MemberMapper.toLoginMember(newMember, tokenInfo, false, Role.GUEST);
     }
 
     private TokenInfo generateToken(Member member) {
