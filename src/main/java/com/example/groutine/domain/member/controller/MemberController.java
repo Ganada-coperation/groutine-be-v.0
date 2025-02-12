@@ -35,24 +35,14 @@ public class MemberController {
         return BaseResponse.onSuccess(memberQueryService.getMemberInfo(member));
     }
 
-    @Operation(summary = "내 정보 수정 API", description = "내 정보를 수정하는 API입니다.")
+    @Operation(summary = "내 정보 업데이트 API", description = "내 정보를 업데이트하는 API입니다. 온보딩과 회원 정보 수정에 사용됩니다.")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "COMMON200", description = "성공")
     })
     @PatchMapping("")
     public BaseResponse<MemberIdResponse> patchMyInfo(@CurrentMember Member member,
                               @Valid @RequestBody MemberInfoRequest request) {
-        return BaseResponse.onSuccess(memberCommandService.patchMyInfo(member, request));
-    }
-
-    @Operation(summary = "회원가입 API", description = "최초 멤버 정보를 등록하는 API입니다.")
-    @ApiResponses( value = {
-            @ApiResponse(responseCode = "COMMON200", description = "성공")
-    })
-    @PostMapping
-    public BaseResponse<MemberIdResponse> signUp(@CurrentMember Member member,
-                                                 @Valid @RequestBody MemberInfoRequest request) {
-        return BaseResponse.onSuccess(memberCommandService.signUp(member, request));
+        return BaseResponse.onSuccess(memberCommandService.updateMemberInfo(member, request));
     }
 
     @Operation(summary = "회원 탈퇴 API", description = "해당 유저 정보를 삭제하는 API입니다.")

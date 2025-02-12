@@ -5,7 +5,7 @@ import com.example.groutine.domain.member.entity.LoginType;
 import com.example.groutine.domain.member.dto.response.MemberGenerateTokenResponse;
 import com.example.groutine.domain.member.dto.response.MemberIdResponse;
 import com.example.groutine.domain.member.dto.response.MemberLoginResponse;
-import com.example.groutine.domain.member.service.MemberAuthCommandService;
+import com.example.groutine.domain.member.service.MemberAuthService;
 import com.example.groutine.global.common.base.BaseResponse;
 import com.example.groutine.global.config.security.auth.CurrentMember;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/members/auth")
 public class MemberAuthController {
-    private final MemberAuthCommandService memberAuthCommandService;
+    private final MemberAuthService memberAuthService;
 
     @Operation(summary = "소셜 로그인 API", description = "네이버, 카카오, 구글 로그인을 수행하는 API입니다.")
     @ApiResponses(value = {
@@ -30,11 +30,30 @@ public class MemberAuthController {
             @ApiResponse(responseCode = "AUTH007", description = "외부 소셜 서버와의 통신 에러" , content =
             @Content(schema = @Schema(implementation = BaseResponse.class)))
     })
-    @PostMapping("/login")
+    @GetMapping("/social/login")
     public BaseResponse<MemberLoginResponse> socialLogin(@RequestParam(value = "accessToken") String accessToken,
                                                          @RequestParam(value = "loginType") LoginType loginType) {
-        return BaseResponse.onSuccess(memberAuthCommandService.socialLogin(accessToken, loginType));
+        return BaseResponse.onSuccess(memberAuthService.socialLogin(accessToken, loginType));
 
+    }
+
+    @Operation(summary = "자체 로그인 API", description = "자체 로그인을 수행하는 API입니다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "COMMON200", description = "로그인 성공")
+    })
+    @GetMapping("/login")
+    public BaseResponse<MemberLoginResponse> login(@RequestBody MemberLoginRequest request) {
+        return BaseResponse.onSuccess(memberAuthService.login(request));
+
+    }
+
+    @Operation(summary = "자체 회원가입 API", description = "자체 회원가입을 수행하는 API입니다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "COMMON200", description = "로그인 성공")
+    })
+    @PostMapping("/sign-up")
+    public BaseResponse<MemberLoginResponse> signUp(@RequestBody MemberLoginRequest request) {
+        return BaseResponse.onSuccess(memberAuthService.login(request));
     }
 
     @Operation(summary = "accessToken 재발급 API", description = "refreshToken가 유효하다면 새로운 accessToken을 발급하는 API입니다.")
@@ -45,7 +64,7 @@ public class MemberAuthController {
     @GetMapping("/token/refresh")
     public BaseResponse<MemberGenerateTokenResponse> regenerateToken(@CurrentMember Member member,
                                                                      @RequestHeader(value = "refreshToken") String refreshToken) {
-        return BaseResponse.onSuccess(memberAuthCommandService.generateNewAccessToken(refreshToken, member));
+        return BaseResponse.onSuccess(memberAuthService.generateNewAccessToken(refreshToken, member));
     }
 
     @Operation(summary = "로그아웃 API", description = "해당 유저의 refreshToken을 삭제하는 API입니다.")
@@ -54,7 +73,7 @@ public class MemberAuthController {
     })
     @DeleteMapping("/logout")
     public BaseResponse<MemberIdResponse> logout(@CurrentMember Member member) {
-        return BaseResponse.onSuccess(memberAuthCommandService.logout(member));
+        return BaseResponse.onSuccess(memberAuthService.logout(member));
     }
 
 }

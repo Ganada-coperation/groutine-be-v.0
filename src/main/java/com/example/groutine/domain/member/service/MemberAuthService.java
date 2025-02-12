@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class MemberAuthCommandService {
+public class MemberAuthService {
 
     public final MemberQueryService memberQueryService;
     public final MemberRefreshTokenService refreshTokenService;

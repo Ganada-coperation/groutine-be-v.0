@@ -47,21 +47,12 @@ public class MemberCommandService {
     // 회원가입을 수행하는 함수
     //이미 소셜 로그인 후, 인증 완료되면 멤버 엔티티는 생겨 있는 상태
     //그 후 추가 정보를 입력받아 저장하는 메서드
-    public MemberIdResponse signUp(Member member, MemberInfoRequest request) {
+    public MemberIdResponse updateMemberInfo(Member member, MemberInfoRequest request) {
 
         // 기본 정보 저장 로직 작성 필요
         member.updateMember(request);
 
-        return new MemberIdResponse(saveEntity(member).getId());
-    }
-
-    // 회원 정보 수정을 수행하는 함수
-    public MemberIdResponse patchMyInfo(Member member, MemberInfoRequest request) {
-
-        // 기본 정보 저장 로직 작성 필요
-        member.updateMember(request);
-
-        return new MemberIdResponse(saveEntity(member).getId());
+        return new MemberIdResponse(member.getId());
     }
 
     // 회원 탈퇴 함수
