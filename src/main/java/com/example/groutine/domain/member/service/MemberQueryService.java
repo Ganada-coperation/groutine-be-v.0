@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class MemberService {
+public class MemberQueryService {
     private final MemberRepository memberRepository;
 
     public Member findById(Long id) throws UsernameNotFoundException {

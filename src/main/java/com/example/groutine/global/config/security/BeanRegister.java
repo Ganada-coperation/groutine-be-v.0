@@ -1,6 +1,6 @@
 package com.example.groutine.global.config.security;
 
-import com.example.groutine.domain.member.service.MemberService;
+import com.example.groutine.domain.member.service.MemberQueryService;
 import com.example.groutine.global.config.security.auth.CustomAccessDeniedHandler;
 import com.example.groutine.global.config.security.jwt.JwtAuthenticationFilter;
 import com.example.groutine.global.config.security.jwt.JwtExceptionFilter;
@@ -31,8 +31,8 @@ public class BeanRegister {
     }
 
     @Bean
-    public JwtAuthenticationFilter jwtAuthenticationFilter(JwtProvider jwtProvider, MemberService memberService) {
-        return new JwtAuthenticationFilter(jwtProvider, memberService);
+    public JwtAuthenticationFilter jwtAuthenticationFilter(JwtProvider jwtProvider, MemberQueryService memberQueryService) {
+        return new JwtAuthenticationFilter(jwtProvider, memberQueryService);
     }
 
 

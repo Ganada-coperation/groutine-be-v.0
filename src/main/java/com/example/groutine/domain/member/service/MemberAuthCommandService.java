@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MemberAuthCommandService {
 
-    public final MemberService memberService;
+    public final MemberQueryService memberQueryService;
     public final MemberRefreshTokenService refreshTokenService;
 
     public final JwtProvider jwtTokenProvider;
@@ -33,7 +33,7 @@ public class MemberAuthCommandService {
     // 새로운 액세스 토큰 발급 함수
     public MemberGenerateTokenResponse generateNewAccessToken(String refreshToken, Member member) {
 
-        Member loginMember = memberService.findById(member.getId());
+        Member loginMember = memberQueryService.findById(member.getId());
 
         // 만료된 refreshToken인지 확인
         if (!jwtTokenProvider.validateToken(refreshToken))
@@ -54,7 +54,7 @@ public class MemberAuthCommandService {
 
     // 로그아웃 함수
     public MemberIdResponse logout(Member member) {
-        Member loginMember = memberService.findById(member.getId());
+        Member loginMember = memberQueryService.findById(member.getId());
 
         refreshTokenService.deleteRefreshToken(loginMember);
         return new MemberIdResponse(loginMember.getId());
@@ -63,7 +63,7 @@ public class MemberAuthCommandService {
     // 회원 탈퇴 함수
     public MemberIdResponse withdrawal(Member member) {
         // 멤버 soft delete
-        Member loginMember = memberService.findById(member.getId());
+        Member loginMember = memberQueryService.findById(member.getId());
 
         // refreshToken 삭제
         refreshTokenService.deleteRefreshToken(loginMember);
