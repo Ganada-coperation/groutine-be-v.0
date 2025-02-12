@@ -70,7 +70,7 @@ public class MemberCommandService {
         // refreshToken 삭제
         refreshTokenService.deleteRefreshToken(member);
 
-        // 멤버 soft delete
+        // todo : 멤버 soft delete (status로 관리)
         member.delete();
 
         return new MemberIdResponse(member.getId());
