@@ -7,6 +7,7 @@ import com.example.groutine.domain.member.entity.Role;
 import com.example.groutine.domain.member.dto.response.MemberLoginResponse;
 import com.example.groutine.domain.member.mapper.MemberMapper;
 import com.example.groutine.domain.member.repository.MemberRepository;
+import com.example.groutine.domain.member.service.MemberCommandService;
 import com.example.groutine.domain.member.service.MemberQueryService;
 import com.example.groutine.domain.member.strategy.LoginStrategy;
 import com.example.groutine.global.config.security.jwt.JwtProvider;
@@ -22,7 +23,7 @@ public class AnonymousLoginStrategy implements LoginStrategy {
 
     private final MemberRepository memberRepository;
     private final MemberMapper memberMapper;
-    private final MemberQueryService memberQueryService;
+    private final MemberCommandService memberCommandService;
     private final JwtProvider jwtProvider;
 
     @Override
@@ -44,7 +45,7 @@ public class AnonymousLoginStrategy implements LoginStrategy {
     private MemberLoginResponse saveNewMember(String clientId, LoginType loginType) {
         Member member = memberMapper.toMember(clientId, loginType);
         member.changeRole(Role.GUEST);
-        Member newMember = memberQueryService.saveEntity(member);
+        Member newMember = memberCommandService.saveEntity(member);
         TokenInfo tokenInfo = generateToken(newMember);
         return memberMapper.toLoginMember(newMember, tokenInfo, false, Role.GUEST);
     }

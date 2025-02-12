@@ -59,18 +59,4 @@ public class MemberAuthCommandService {
         refreshTokenService.deleteRefreshToken(loginMember);
         return new MemberIdResponse(loginMember.getId());
     }
-
-    // 회원 탈퇴 함수
-    public MemberIdResponse withdrawal(Member member) {
-        // 멤버 soft delete
-        Member loginMember = memberQueryService.findById(member.getId());
-
-        // refreshToken 삭제
-        refreshTokenService.deleteRefreshToken(loginMember);
-
-        // 멤버 soft delete
-        loginMember.delete();
-
-        return new MemberIdResponse(loginMember.getId());
-    }
 }
