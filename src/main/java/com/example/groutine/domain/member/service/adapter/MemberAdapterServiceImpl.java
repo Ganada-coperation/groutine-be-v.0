@@ -1,6 +1,6 @@
-package com.example.groutine.domain.member.service;
+package com.example.groutine.domain.member.service.adapter;
 
-import com.example.groutine.domain.member.entity.Member;
+import com.example.groutine.domain.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

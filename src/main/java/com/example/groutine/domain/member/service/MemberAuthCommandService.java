@@ -2,7 +2,6 @@ package com.example.groutine.domain.member.service;
 
 import com.example.groutine.domain.member.entity.Member;
 import com.example.groutine.domain.member.entity.LoginType;
-import com.example.groutine.domain.member.dto.request.MemberSignUpRequest;
 import com.example.groutine.domain.member.dto.response.MemberGenerateTokenResponse;
 import com.example.groutine.domain.member.dto.response.MemberIdResponse;
 import com.example.groutine.domain.member.dto.response.MemberLoginResponse;
@@ -16,8 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
-public class MemberAuthServiceImpl implements MemberAuthService {
+public class MemberAuthCommandService {
 
     public final MemberService memberService;
     public final MemberRefreshTokenService refreshTokenService;
@@ -26,29 +26,11 @@ public class MemberAuthServiceImpl implements MemberAuthService {
     private final LoginContext loginContext;
 
     // 소셜 로그인을 수행하는 함수
-    @Override
-    @Transactional
     public MemberLoginResponse socialLogin(String accessToken, LoginType loginType) {
         return loginContext.executeStrategy(accessToken, loginType);
     }
 
-    // 회원가입을 수행하는 함수
-    @Override
-    @Transactional
-    public MemberIdResponse signUp(Member member, MemberSignUpRequest request) {
-        //이미 소셜 로그인 후, 인증 완료되면 멤버 엔티티는 생겨 있는 상태
-        //그 후 추가 정보를 입력받아 저장하는 메서드
-        Member loginMember = memberService.findById(member.getId());
-
-        // 기본 정보 저장 로직 작성 필요
-        loginMember.setName(request.getName());
-
-        return new MemberIdResponse(memberService.saveEntity(loginMember).getId());
-    }
-
     // 새로운 액세스 토큰 발급 함수
-    @Override
-    @Transactional
     public MemberGenerateTokenResponse generateNewAccessToken(String refreshToken, Member member) {
 
         Member loginMember = memberService.findById(member.getId());
@@ -71,8 +53,6 @@ public class MemberAuthServiceImpl implements MemberAuthService {
     }
 
     // 로그아웃 함수
-    @Override
-    @Transactional
     public MemberIdResponse logout(Member member) {
         Member loginMember = memberService.findById(member.getId());
 
@@ -81,8 +61,6 @@ public class MemberAuthServiceImpl implements MemberAuthService {
     }
 
     // 회원 탈퇴 함수
-    @Override
-    @Transactional
     public MemberIdResponse withdrawal(Member member) {
         // 멤버 soft delete
         Member loginMember = memberService.findById(member.getId());
