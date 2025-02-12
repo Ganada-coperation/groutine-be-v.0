@@ -28,4 +28,9 @@ public class MemberQueryService {
         return MemberMapper.toMemberInfoResponse(member);
     }
 
+    // 이메일이 존재하는지 확인하는 함수
+    public boolean existsByEmail(String email) {
+        return memberRepository.existsByEmail(email);
+    }
+
 }

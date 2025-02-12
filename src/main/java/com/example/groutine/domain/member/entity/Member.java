@@ -7,6 +7,7 @@ import com.example.groutine.domain.mission.entity.ChallengeMissionVerification;
 import com.example.groutine.global.common.base.BaseEntity;
 import com.example.groutine.global.common.enums.Status;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -22,6 +23,8 @@ public class Member extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String email;
 
     @Setter
     private String name;
@@ -61,8 +64,9 @@ public class Member extends BaseEntity {
 
 
     @Builder
-    public Member(String name, LoginType loginType, String clientId) {
+    public Member(String name, LoginType loginType, String clientId, String email) {
         this.name = name;
+        this.email = email;
         this.role = Role.MEMBER;
         this.loginType = loginType;
         this.clientId = clientId;
@@ -71,6 +75,7 @@ public class Member extends BaseEntity {
 
     public void updateMember(MemberInfoRequest request) {
         this.name = request.name();
+        this.email = request.email();
         this.profileImageUrl = request.profileImageUrl();
         this.birth = request.birth();
         this.gender = request.gender();
