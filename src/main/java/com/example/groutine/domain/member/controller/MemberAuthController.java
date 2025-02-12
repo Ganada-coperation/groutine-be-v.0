@@ -1,5 +1,6 @@
 package com.example.groutine.domain.member.controller;
 
+import com.example.groutine.domain.member.dto.request.SocialLoginRequest;
 import com.example.groutine.domain.member.entity.Member;
 import com.example.groutine.domain.member.entity.LoginType;
 import com.example.groutine.domain.member.dto.response.MemberGenerateTokenResponse;
@@ -30,10 +31,9 @@ public class MemberAuthController {
             @ApiResponse(responseCode = "AUTH007", description = "외부 소셜 서버와의 통신 에러" , content =
             @Content(schema = @Schema(implementation = BaseResponse.class)))
     })
-    @GetMapping("/social/login")
-    public BaseResponse<MemberLoginResponse> socialLogin(@RequestParam(value = "accessToken") String accessToken,
-                                                         @RequestParam(value = "loginType") LoginType loginType) {
-        return BaseResponse.onSuccess(memberAuthService.socialLogin(accessToken, loginType));
+    @PostMapping("/social/login")
+    public BaseResponse<MemberLoginResponse> socialLogin(@RequestBody SocialLoginRequest request) {
+        return BaseResponse.onSuccess(memberAuthService.socialLogin(request.accessToken(), request.loginType()));
 
     }
 
@@ -53,7 +53,7 @@ public class MemberAuthController {
     })
     @PostMapping("/sign-up")
     public BaseResponse<MemberLoginResponse> signUp(@RequestBody MemberLoginRequest request) {
-        return BaseResponse.onSuccess(memberAuthService.login(request));
+        return BaseResponse.onSuccess(memberAuthService.signUp(request));
     }
 
     @Operation(summary = "accessToken 재발급 API", description = "refreshToken가 유효하다면 새로운 accessToken을 발급하는 API입니다.")
