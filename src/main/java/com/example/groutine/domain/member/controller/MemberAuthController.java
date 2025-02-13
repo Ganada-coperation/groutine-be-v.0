@@ -1,5 +1,7 @@
 package com.example.groutine.domain.member.controller;
 
+import com.example.groutine.domain.member.dto.request.MemberLoginRequest;
+import com.example.groutine.domain.member.dto.request.MemberSignInRequest;
 import com.example.groutine.domain.member.dto.request.SocialLoginRequest;
 import com.example.groutine.domain.member.entity.Member;
 import com.example.groutine.domain.member.entity.LoginType;
@@ -15,6 +17,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,17 +45,17 @@ public class MemberAuthController {
             @ApiResponse(responseCode = "COMMON200", description = "로그인 성공")
     })
     @GetMapping("/login")
-    public BaseResponse<MemberLoginResponse> login(@RequestBody MemberLoginRequest request) {
+    public BaseResponse<MemberLoginResponse> login(@Valid @RequestBody MemberLoginRequest request) {
         return BaseResponse.onSuccess(memberAuthService.login(request));
 
     }
 
-    @Operation(summary = "자체 회원가입 API", description = "자체 회원가입을 수행하는 API입니다.")
+    @Operation(summary = "자체 회원가입 API", description = "자체 회원가입을 수행하는 API입니다. 아이디와 비밀 번호 값으로 멤버를 등록합니다. 이후 온보딩에서의 정보 등록은 별도로 진행해야 합니다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "COMMON200", description = "로그인 성공")
     })
     @PostMapping("/sign-up")
-    public BaseResponse<MemberLoginResponse> signUp(@RequestBody MemberLoginRequest request) {
+    public BaseResponse<MemberLoginResponse> signUp(@Valid @RequestBody MemberSignInRequest request) {
         return BaseResponse.onSuccess(memberAuthService.signUp(request));
     }
 
