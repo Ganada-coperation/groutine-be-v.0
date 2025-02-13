@@ -40,7 +40,7 @@ public class AnonymousLoginStrategy implements LoginStrategy {
 
         return MemberMapper.toLoginMember(member, tokenInfo, isServiceMember, member.getRole());
     }
-
+    // todo 모듈화 시키기
     private MemberLoginResponse saveNewMember(String clientId, LoginType loginType) {
         Member member = MemberMapper.toMember(clientId, loginType);
         member.changeRole(Role.GUEST);

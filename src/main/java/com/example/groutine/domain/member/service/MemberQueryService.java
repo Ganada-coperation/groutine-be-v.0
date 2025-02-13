@@ -33,4 +33,9 @@ public class MemberQueryService {
         return memberRepository.existsByEmail(email);
     }
 
+    // 이메일로 멤버를 찾는 함수
+    public Member findByEmail(String email) {
+        return memberRepository.findByEmail(email).orElseThrow(() -> new RestApiException(MemberErrorStatus.EMPTY_MEMBER));
+    }
+
 }

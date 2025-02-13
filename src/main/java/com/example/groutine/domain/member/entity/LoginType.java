@@ -10,6 +10,7 @@ public enum LoginType {
     GOOGLE("구글"),
     NAVER("네이버"),
     APPLE("애플"),
+    EMAIL("이메일"),
     ANONYMOUS("비회원");
 
     private final String toKorean;

@@ -16,6 +16,13 @@ public class MemberMapper {
                 .build();
     }
 
+    public static Member toMember(String email, String password){
+        return Member.builder()
+                .email(email)
+                .loginType(LoginType.EMAIL)
+                .build();
+    }
+
     public static MemberLoginResponse toLoginMember(final Member member, TokenInfo tokenInfo, boolean isServiceMember, Role role) {
         return MemberLoginResponse.builder()
                 .memberId(member.getId())
