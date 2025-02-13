@@ -1,8 +1,10 @@
 package com.example.groutine.domain.member.controller;
 
+import com.example.groutine.domain.member.dto.request.MemberLoginRequest;
+import com.example.groutine.domain.member.dto.request.MemberSignInRequest;
+import com.example.groutine.domain.member.dto.request.SocialLoginRequest;
 import com.example.groutine.domain.member.entity.Member;
 import com.example.groutine.domain.member.entity.LoginType;
-import com.example.groutine.domain.member.dto.request.MemberSignUpRequest;
 import com.example.groutine.domain.member.dto.response.MemberGenerateTokenResponse;
 import com.example.groutine.domain.member.dto.response.MemberIdResponse;
 import com.example.groutine.domain.member.dto.response.MemberLoginResponse;
@@ -22,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "인증 API", description = "멤버 인증 관련 API")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/members")
+@RequestMapping("/members/auth")
 public class MemberAuthController {
     private final MemberAuthService memberAuthService;
 
@@ -32,23 +34,29 @@ public class MemberAuthController {
             @ApiResponse(responseCode = "AUTH007", description = "외부 소셜 서버와의 통신 에러" , content =
             @Content(schema = @Schema(implementation = BaseResponse.class)))
     })
-    @PostMapping("/login")
-    public BaseResponse<MemberLoginResponse> socialLogin(@RequestParam(value = "accessToken") String accessToken,
-                                                         @RequestParam(value = "loginType") LoginType loginType) {
-        return BaseResponse.onSuccess(memberAuthService.socialLogin(accessToken, loginType));
+    @PostMapping("/social/login")
+    public BaseResponse<MemberLoginResponse> socialLogin(@RequestBody SocialLoginRequest request) {
+        return BaseResponse.onSuccess(memberAuthService.socialLogin(request.accessToken(), request.loginType()));
 
     }
 
-    @Operation(summary = "회원가입 API", description = "최초 멤버 정보를 등록하는 API입니다.")
-    @ApiResponses( value = {
-            @ApiResponse(responseCode = "COMMON200", description = "성공"),
-            @ApiResponse(responseCode = "UNIVERSITY001", description = "대학교명을 잘못 입력하였을 경우 발생"),
-            @ApiResponse(responseCode = "BRANCH001", description = "대학교가 지부랑 연결되어 있지 않을 경우 발생")
+    @Operation(summary = "자체 로그인 API", description = "자체 로그인을 수행하는 API입니다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "COMMON200", description = "로그인 성공")
     })
-    @PostMapping
-    public BaseResponse<MemberIdResponse> signUp(@CurrentMember Member member,
-                                                 @Valid @RequestBody MemberSignUpRequest request) {
-        return BaseResponse.onSuccess(memberAuthService.signUp(member, request));
+    @GetMapping("/login")
+    public BaseResponse<MemberLoginResponse> login(@Valid @RequestBody MemberLoginRequest request) {
+        return BaseResponse.onSuccess(memberAuthService.login(request));
+
+    }
+
+    @Operation(summary = "자체 회원가입 API", description = "자체 회원가입을 수행하는 API입니다. 아이디와 비밀 번호 값으로 멤버를 등록합니다. 이후 온보딩에서의 정보 등록은 별도로 진행해야 합니다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "COMMON200", description = "로그인 성공")
+    })
+    @PostMapping("/sign-up")
+    public BaseResponse<MemberLoginResponse> signUp(@Valid @RequestBody MemberSignInRequest request) {
+        return BaseResponse.onSuccess(memberAuthService.signUp(request));
     }
 
     @Operation(summary = "accessToken 재발급 API", description = "refreshToken가 유효하다면 새로운 accessToken을 발급하는 API입니다.")
@@ -69,15 +77,6 @@ public class MemberAuthController {
     @DeleteMapping("/logout")
     public BaseResponse<MemberIdResponse> logout(@CurrentMember Member member) {
         return BaseResponse.onSuccess(memberAuthService.logout(member));
-    }
-
-    @Operation(summary = "회원 탈퇴 API", description = "해당 유저 정보를 삭제하는 API입니다.")
-    @ApiResponses( value = {
-            @ApiResponse(responseCode = "COMMON200", description = "성공")
-    })
-    @DeleteMapping
-    public BaseResponse<MemberIdResponse> withdrawal(@CurrentMember Member member) {
-        return BaseResponse.onSuccess(memberAuthService.withdrawal(member));
     }
 
 }
