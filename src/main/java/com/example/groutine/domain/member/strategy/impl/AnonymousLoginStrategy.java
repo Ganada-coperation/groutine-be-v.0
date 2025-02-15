@@ -7,7 +7,8 @@ import com.example.groutine.domain.member.entity.Role;
 import com.example.groutine.domain.member.dto.response.MemberLoginResponse;
 import com.example.groutine.domain.member.mapper.MemberMapper;
 import com.example.groutine.domain.member.repository.MemberRepository;
-import com.example.groutine.domain.member.service.MemberService;
+import com.example.groutine.domain.member.service.MemberCommandService;
+import com.example.groutine.domain.member.service.MemberQueryService;
 import com.example.groutine.domain.member.strategy.LoginStrategy;
 import com.example.groutine.global.config.security.jwt.JwtProvider;
 import com.example.groutine.global.config.security.jwt.TokenInfo;
@@ -21,8 +22,7 @@ import java.util.Optional;
 public class AnonymousLoginStrategy implements LoginStrategy {
 
     private final MemberRepository memberRepository;
-    private final MemberMapper memberMapper;
-    private final MemberService memberService;
+    private final MemberCommandService memberCommandService;
     private final JwtProvider jwtProvider;
 
     @Override
@@ -38,15 +38,15 @@ public class AnonymousLoginStrategy implements LoginStrategy {
         boolean isServiceMember = member.getName() != null;
         TokenInfo tokenInfo = generateToken(member);
 
-        return memberMapper.toLoginMember(member, tokenInfo, isServiceMember, member.getRole());
+        return MemberMapper.toLoginMember(member, tokenInfo, isServiceMember, member.getRole());
     }
-
+    // todo 모듈화 시키기
     private MemberLoginResponse saveNewMember(String clientId, LoginType loginType) {
-        Member member = memberMapper.toMember(clientId, loginType);
+        Member member = MemberMapper.toMember(clientId, loginType);
         member.changeRole(Role.GUEST);
-        Member newMember = memberService.saveEntity(member);
+        Member newMember = memberCommandService.saveEntity(member);
         TokenInfo tokenInfo = generateToken(newMember);
-        return memberMapper.toLoginMember(newMember, tokenInfo, false, Role.GUEST);
+        return MemberMapper.toLoginMember(newMember, tokenInfo, false, Role.GUEST);
     }
 
     private TokenInfo generateToken(Member member) {

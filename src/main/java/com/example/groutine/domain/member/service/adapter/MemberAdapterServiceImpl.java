@@ -1,6 +1,6 @@
-package com.example.groutine.domain.member.service;
+package com.example.groutine.domain.member.service.adapter;
 
-import com.example.groutine.domain.member.entity.Member;
+import com.example.groutine.domain.member.service.MemberQueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -8,5 +8,5 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class MemberAdapterServiceImpl implements MemberAdapterService{
 
-    private final MemberService memberService;
+    private final MemberQueryService memberQueryService;
 }

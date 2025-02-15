@@ -23,6 +23,8 @@ public enum AuthErrorStatus implements BaseCodeInterface {
     FAILED_GITHUB_AUTHENTICATION(HttpStatus.INTERNAL_SERVER_ERROR, "AUTH008", "깃허브 서버와 통신이 실패하였습니다."),
     FAILED_GET_APPLE_KEY(HttpStatus.INTERNAL_SERVER_ERROR, "AUTH009", "애플 서버와 통신이 실패하였습니다."),
     INVALID_APPLE_ID_TOKEN(HttpStatus.BAD_REQUEST, "AUTH010","유효하지 않은 애플 ID TOKEN입니다."),
+
+    INVALID_PASSWORD(HttpStatus.BAD_REQUEST, "AUTH011", "비밀번호가 일치하지 않습니다."),
     ;
 
     private final HttpStatus httpStatus;

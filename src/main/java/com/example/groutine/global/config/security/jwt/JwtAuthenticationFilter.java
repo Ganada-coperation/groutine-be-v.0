@@ -1,20 +1,17 @@
 package com.example.groutine.global.config.security.jwt;
 
 import com.example.groutine.domain.member.entity.Member;
-import com.example.groutine.domain.member.service.MemberService;
+import com.example.groutine.domain.member.service.MemberQueryService;
 import com.example.groutine.global.config.security.auth.PrincipalDetails;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.filter.GenericFilterBean;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -24,7 +21,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     // 오직 인증 정보를 설정하는 역할만 수행
 
     private final JwtProvider jwtTokenProvider;
-    private final MemberService memberService;
+    private final MemberQueryService memberQueryService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
@@ -44,7 +41,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String role = claims.get("role", String.class);
 
         Long memberId = Long.valueOf(claims.get("memberId", String.class)); // memberId 가져옴
-        Member member = memberService.findById(memberId); // Member 객체 조회
+        Member member = memberQueryService.findById(memberId); // Member 객체 조회
 
         // PrincipalDetails 사용
         PrincipalDetails principalDetails = new PrincipalDetails(member);
